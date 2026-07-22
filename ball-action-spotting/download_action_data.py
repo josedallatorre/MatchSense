@@ -1,6 +1,7 @@
 import argparse
 
 from SoccerNet.Downloader import SoccerNetDownloader
+from SoccerNet.utils import getListGames
 
 
 parser = argparse.ArgumentParser(
@@ -23,9 +24,23 @@ if __name__ == "__main__":
 
     soccernet_downloader = SoccerNetDownloader(LocalDirectory=args.dataset_dir)
     soccernet_downloader.password = args.password_videos
+    files_to_download = ["Labels-v2.json", "1_224p.mkv","1_ResNET_TF2_PCA512.npy", "2_ResNET_TF2_PCA512.npy"]
+    subset = getListGames(split="train")[:10]
+    for i,game in enumerate(subset):
+        print(f"Downloading {i}{game}...")
+        soccernet_downloader.downloadGame(game=game, files=files_to_download)
+    subset = getListGames(split="valid")[:10]
+    for i,game in enumerate(subset):
+        print(f"Downloading {game}...")
+        soccernet_downloader.downloadGame(game=game, files=files_to_download)
+    print("✅ Download complete!")
+    """
     soccernet_downloader.downloadGames(files=["Labels-v2.json"],
                                        split=list_splits)
+    """
     if not args.only_train_valid:
         list_splits.append("challenge")
+    """
     soccernet_downloader.downloadGames(files=["1_720p.mkv", "2_720p.mkv"],
                                        split=list_splits)
+    """
