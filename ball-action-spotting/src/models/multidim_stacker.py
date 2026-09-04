@@ -133,6 +133,16 @@ class InvertedResidual3d(nn.Module):
         x = self.drop_path(x) + shortcut
         return x
 
+class LearnedPositionalEncoding(nn.Module):
+    def __init__(self, max_seq_len, dim):
+        super().__init__()
+        self.position_embeddings = nn.Embedding(max_seq_len, dim)
+        
+    def forward(self, x):
+        positions = torch.arange(x.size(1), device=x.device).expand(x.size(0), -1)
+        position_embeddings = self.position_embeddings(positions)
+        return x + position_embeddings
+
 
 class MultiDimStacker(nn.Module):
     def __init__(self,
@@ -184,16 +194,23 @@ class MultiDimStacker(nn.Module):
             norm_act_layer(num_3d_features, inplace=True)
         )
 
-        self.conv3d_encoder = nn.Sequential(*[
-            InvertedResidual3d(
-                num_3d_features,
-                num_3d_features,
-                expansion_ratio=expansion_3d_ratio,
-                se_reduce_ratio=se_reduce_3d_ratio,
-                act_layer=act_layer,
-                drop_path_rate=drop_path_rate,
-            ) for _ in range(num_3d_blocks)
-        ])
+        self.spatial_pool  = nn.AdaptiveAvgPool2d(
+            (2, stack_size, num_3d_features)
+        )
+        """
+        self.positional_embedding
+        self.transformer_encoder
+        self.temporal_pool
+        """
+        
+        self.temporal_encoder = nn.TransformerEncoder(
+            nn.TransformerEncoderLayer(
+                d_model=192,
+                nhead=8,
+                batch_first=True
+                ),
+            num_layers=2
+        )
 
         self.conv3d_projection = nn.Sequential(
             create_conv2d(
@@ -222,7 +239,13 @@ class MultiDimStacker(nn.Module):
         b, t, c, h, w = x.shape  # (2, 5, 192, 23, 40)
         assert c == self.num_3d_features and t == self.num_stacks
         x = x.transpose(1, 2)  # (2, 192, 5, 23, 40)
-        x = self.conv3d_encoder(x)  # (2, 192, 5, 23, 40)
+        x = self.spatial_pool
+        # Using Adaptive Average Pooling
+        gap_layer = nn.AdaptiveAvgPool2d((1, 1))
+        x = gap_layer(23,40) # Shape: (N, C, 1, 1)
+        uuux = torch.flatten(x, 1) # Shape: (N, C)
+        x = LearnedPositionalEncoding(max_seq_len=512, dim=768)
+        #x = self.conv3d_encoder(x)  # (2, 192, 5, 23, 40)
         x = x.transpose(1, 2)  # (2, 5, 192, 23, 40)
         x = x.reshape(b * t, c, h, w)  # (10, 192, 23, 40)
         x = self.conv3d_projection(x)  # (10, 256, 23, 40)
