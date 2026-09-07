@@ -194,9 +194,7 @@ class MultiDimStacker(nn.Module):
             norm_act_layer(num_3d_features, inplace=True)
         )
 
-        self.spatial_pool  = nn.AdaptiveAvgPool2d(
-            (2, stack_size, num_3d_features)
-        )
+        self.spatial_pool  = nn.AdaptiveAvgPool2d((1,1))
         """
         self.positional_embedding
         self.transformer_encoder
@@ -238,19 +236,34 @@ class MultiDimStacker(nn.Module):
     def forward_3d(self, x):
         b, t, c, h, w = x.shape  # (2, 5, 192, 23, 40)
         assert c == self.num_3d_features and t == self.num_stacks
-        x = x.transpose(1, 2)  # (2, 192, 5, 23, 40)
-        x = self.spatial_pool
+        #x = x.transpose(1, 2)  # (2, 192, 5, 23, 40)
+        print(x.shape)
+        x = x.reshape(b * self.num_stacks, self.num_3d_features, h, w)  # (10, 192, 23, 40)
+        print(x.shape)
+        x_pooled = self.spatial_pool(x)
+        print("\nAfter AdaptiveAvgPool2d:") 
+        print(x_pooled.shape)
+        x_flat = x_pooled.flatten(1)
+        print("\nAfter flatten:")
+        print(x_flat.shape)
+        x_reshaped = x_flat.reshape(b, self.num_stacks, self.num_3d_features)
+        print("\nAfter reshape:")
+        print(x_reshaped.shape)
+
+        """
         # Using Adaptive Average Pooling
         gap_layer = nn.AdaptiveAvgPool2d((1, 1))
         x = gap_layer(23,40) # Shape: (N, C, 1, 1)
         uuux = torch.flatten(x, 1) # Shape: (N, C)
+       
         x = LearnedPositionalEncoding(max_seq_len=512, dim=768)
         #x = self.conv3d_encoder(x)  # (2, 192, 5, 23, 40)
         x = x.transpose(1, 2)  # (2, 5, 192, 23, 40)
         x = x.reshape(b * t, c, h, w)  # (10, 192, 23, 40)
         x = self.conv3d_projection(x)  # (10, 256, 23, 40)
         x = x.view(b, self.num_features, h, w)  # (2, 1280, 23, 40)
-        return x
+         """
+        return x_reshaped
 
     def forward_head(self, x):
         x = self.global_pool(x)
