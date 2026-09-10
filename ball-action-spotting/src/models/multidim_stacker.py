@@ -253,6 +253,13 @@ class MultiDimStacker(nn.Module):
         x_reshaped_transformer_encoder = self.temporal_encoder(x_reshaped)
         print("\nAfter transformer encoder:")
         print(x_reshaped_transformer_encoder.shape)
+        m = nn.AdaptiveAvgPool1d(1)
+        pooling_layer = nn.AdaptiveAvgPool1d(1) 
+        x_reshaped_transformer_encoder = x_reshaped_transformer_encoder.reshape(b, self.num_3d_features, self.num_stacks)
+        x_reshaped_transformer_encoder = pooling_layer(x_reshaped_transformer_encoder)
+        x_reshaped_transformer_encoder = x_reshaped_transformer_encoder.reshape(b, self.num_3d_features)
+        print("\nAfter Temporal average pooling:")
+        print(x_reshaped_transformer_encoder.shape)
         """
         # Using Adaptive Average Pooling
         gap_layer = nn.AdaptiveAvgPool2d((1, 1))
