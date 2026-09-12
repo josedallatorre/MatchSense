@@ -218,7 +218,7 @@ class MultiDimStacker(nn.Module):
         )
 
         self.global_pool = GeneralizedMeanPooling(3.0)
-        self.classifier = nn.Linear(self.num_features, num_classes, bias=True)
+        self.classifier = nn.Linear(self.num_3d_features, num_classes, bias=True)
 
     def forward_2d(self, x):
         b, t, h, w = x.shape  # (2, 15, 736, 1280)
@@ -254,7 +254,7 @@ class MultiDimStacker(nn.Module):
         print("\nAfter transformer encoder:")
         print(x_reshaped_transformer_encoder.shape)
         m = nn.AdaptiveAvgPool1d(1)
-        pooling_layer = nn.AdaptiveAvgPool1d(1) 
+        pooling_layer = nn.AdaptiveAvgPool1d(1)
         x_reshaped_transformer_encoder = x_reshaped_transformer_encoder.reshape(b, self.num_3d_features, self.num_stacks)
         x_reshaped_transformer_encoder = pooling_layer(x_reshaped_transformer_encoder)
         x_reshaped_transformer_encoder = x_reshaped_transformer_encoder.reshape(b, self.num_3d_features)
@@ -275,9 +275,11 @@ class MultiDimStacker(nn.Module):
          """
         return x_reshaped_transformer_encoder
     def forward_head(self, x):
+        """
         x = self.global_pool(x)
         if self.drop_rate > 0.:
             x = nn.functional.dropout(x, p=self.drop_rate, training=self.training)
+        """
         x = self.classifier(x)
         return x
 
