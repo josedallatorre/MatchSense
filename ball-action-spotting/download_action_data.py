@@ -25,11 +25,11 @@ if __name__ == "__main__":
     soccernet_downloader = SoccerNetDownloader(LocalDirectory=args.dataset_dir)
     soccernet_downloader.password = args.password_videos
     files_to_download = ["Labels-v2.json", "1_224p.mkv","1_ResNET_TF2_PCA512.npy", "2_ResNET_TF2_PCA512.npy"]
-    subset = getListGames(split="train")[:10]
+    subset = getListGames(split="train")[:1]
     for i,game in enumerate(subset):
         print(f"Downloading {i}{game}...")
         soccernet_downloader.downloadGame(game=game, files=files_to_download)
-    subset = getListGames(split="valid")[:10]
+    subset = getListGames(split="valid")[:1]
     for i,game in enumerate(subset):
         print(f"Downloading {game}...")
         soccernet_downloader.downloadGame(game=game, files=files_to_download)
