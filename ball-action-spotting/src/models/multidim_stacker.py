@@ -152,11 +152,8 @@ class MultiDimStacker(nn.Module):
                  stack_size: int = 3,
                  index_2d_features: int = 4,
                  pretrained: bool = False,
-                 num_3d_blocks: int = 2,
                  num_3d_features: int = 192,
                  num_3d_stack_proj: int = 256,
-                 expansion_3d_ratio: int = 6,
-                 se_reduce_3d_ratio: int = 24,
                  drop_rate: bool = 0.,
                  drop_path_rate: float = 0.,
                  act_layer: str = "silu",
@@ -200,7 +197,7 @@ class MultiDimStacker(nn.Module):
 
         self.temporal_encoder = nn.TransformerEncoder(
             nn.TransformerEncoderLayer(
-                d_model=192,
+                d_model=self.num_3d_features,
                 nhead=8,
                 batch_first=True
                 ),
@@ -208,16 +205,6 @@ class MultiDimStacker(nn.Module):
         )
         self.temporal_pool = nn.AdaptiveAvgPool1d(1)
 
-        self.conv3d_projection = nn.Sequential(
-            create_conv2d(
-                num_3d_features,
-                num_3d_stack_proj,
-                kernel_size=1, stride=1,
-            ),
-            norm_act_layer(num_3d_stack_proj, inplace=True),
-        )
-
-        self.global_pool = GeneralizedMeanPooling(3.0)
         self.classifier = nn.Linear(self.num_3d_features, num_classes, bias=True)
 
     def forward_2d(self, x):
