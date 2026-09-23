@@ -195,10 +195,9 @@ class MultiDimStacker(nn.Module):
         )
 
         self.spatial_pool  = nn.AdaptiveAvgPool2d((1,1))
-        """
-        self.temporal_pool
-        """
-        self.positional_embedding = LearnedPositionalEncoding(5,192)
+
+        self.positional_embedding = LearnedPositionalEncoding(self.num_stacks ,self.num_3d_features)
+
         self.temporal_encoder = nn.TransformerEncoder(
             nn.TransformerEncoderLayer(
                 d_model=192,
@@ -207,6 +206,7 @@ class MultiDimStacker(nn.Module):
                 ),
             num_layers=2
         )
+        self.temporal_pool = nn.AdaptiveAvgPool1d(1)
 
         self.conv3d_projection = nn.Sequential(
             create_conv2d(
@@ -235,45 +235,17 @@ class MultiDimStacker(nn.Module):
         b, t, c, h, w = x.shape  # (2, 5, 192, 23, 40)
         assert c == self.num_3d_features and t == self.num_stacks
         #x = x.transpose(1, 2)  # (2, 192, 5, 23, 40)
-        print(x.shape)
         x = x.reshape(b * self.num_stacks, self.num_3d_features, h, w)  # (10, 192, 23, 40)
-        print(x.shape)
-        x_pooled = self.spatial_pool(x)
-        print("\nAfter AdaptiveAvgPool2d:")
-        print(x_pooled.shape)
-        x_flat = x_pooled.flatten(1)
-        print("\nAfter flatten:")
-        print(x_flat.shape)
-        x_reshaped = x_flat.reshape(b, self.num_stacks, self.num_3d_features)
-        print("\nAfter reshape:")
-        print(x_reshaped.shape)
-        x_reshaped = self.positional_embedding(x_reshaped)
-        print("\nAfter positional encoding:")
-        print(x_reshaped.shape)
-        x_reshaped_transformer_encoder = self.temporal_encoder(x_reshaped)
-        print("\nAfter transformer encoder:")
-        print(x_reshaped_transformer_encoder.shape)
-        m = nn.AdaptiveAvgPool1d(1)
-        pooling_layer = nn.AdaptiveAvgPool1d(1)
-        x_reshaped_transformer_encoder = x_reshaped_transformer_encoder.reshape(b, self.num_3d_features, self.num_stacks)
-        x_reshaped_transformer_encoder = pooling_layer(x_reshaped_transformer_encoder)
-        x_reshaped_transformer_encoder = x_reshaped_transformer_encoder.reshape(b, self.num_3d_features)
-        print("\nAfter Temporal average pooling:")
-        print(x_reshaped_transformer_encoder.shape)
-        """
-        # Using Adaptive Average Pooling
-        gap_layer = nn.AdaptiveAvgPool2d((1, 1))
-        x = gap_layer(23,40) # Shape: (N, C, 1, 1)
-        uuux = torch.flatten(x, 1) # Shape: (N, C)
+        x = self.spatial_pool(x)
+        x = x.flatten(1)
+        x = x.reshape(b, self.num_stacks, self.num_3d_features)
+        x = self.positional_embedding(x)
+        x = self.temporal_encoder(x)
+        x = x.reshape(b, self.num_3d_features, self.num_stacks)
+        x = self.temporal_pool(x)
+        x = x.reshape(b, self.num_3d_features)
+        return x
 
-
-        #x = self.conv3d_encoder(x)  # (2, 192, 5, 23, 40)
-        x = x.transpose(1, 2)  # (2, 5, 192, 23, 40)
-        x = x.reshape(b * t, c, h, w)  # (10, 192, 23, 40)
-        x = self.conv3d_projection(x)  # (10, 256, 23, 40)
-        x = x.view(b, self.num_features, h, w)  # (2, 1280, 23, 40)
-         """
-        return x_reshaped_transformer_encoder
     def forward_head(self, x):
         """
         x = self.global_pool(x)
