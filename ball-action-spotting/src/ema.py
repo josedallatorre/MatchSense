@@ -1,5 +1,5 @@
 from copy import deepcopy
-
+import os
 import torch
 from torch import nn
 from torch.nn.parallel import DataParallel, DistributedDataParallel
@@ -57,22 +57,97 @@ class ModelEma(nn.Module):
     def set(self, model):
         self._update(model, update_fn=lambda e, m: m)
 
-
 class EmaCheckpoint(Checkpoint):
+    def __init__(
+        self,
+        *args,
+        scheduler_callback=None,
+        stage=None,
+        epoch_offset=0,
+        **kwargs,
+    ):
+        super().__init__(*args, **kwargs)
+        self.scheduler_callback = scheduler_callback
+        self.stage = stage
+        self.epoch_offset = epoch_offset
+
+    def _format_file_path(self, state):
+        format_state = {
+            "epoch": state.epoch + self.epoch_offset,
+            **state.metrics,
+        }
+        file_name = self.file_format.format(**format_state)
+        return os.path.join(self.dir_path, file_name)
+
     def save_model(self, state: State, file_path):
+        # EMA model.
         nn_module = state.model.model_ema.ema
-        if isinstance(nn_module, (DataParallel, DistributedDataParallel)):
+
+        if isinstance(
+            nn_module,
+            (DataParallel, DistributedDataParallel),
+        ):
             nn_module = nn_module.module
 
+        # Actual model being optimized.
         no_ema_nn_module = state.model.get_nn_module()
-        if isinstance(no_ema_nn_module, (DataParallel, DistributedDataParallel)):
+
+        if isinstance(
+            no_ema_nn_module,
+            (DataParallel, DistributedDataParallel),
+        ):
             no_ema_nn_module = no_ema_nn_module.module
 
-        torch_state = {
-            'model_name': state.model.__class__.__name__,
-            'params': state.model.params,
-            'nn_state_dict': deep_to(nn_module.state_dict(), 'cpu'),
-            'no_ema_nn_state_dict': deep_to(no_ema_nn_module.state_dict(), 'cpu')
+        checkpoint = {
+            "model_name": state.model.__class__.__name__,
+            "params": state.model.params,
+
+            # EMA weights used for validation.
+            "nn_state_dict": deep_to(
+                nn_module.state_dict(),
+                "cpu",
+            ),
+
+            # Weights actually being trained.
+            "no_ema_nn_state_dict": deep_to(
+                no_ema_nn_module.state_dict(),
+                "cpu",
+            ),
+
+            # Resume position.
+            "stage": self.stage,
+            "completed_epoch": self.epoch_offset + state.epoch + 1,
         }
-        torch.save(torch_state, file_path)
-        state.logger.info(f"Model saved to '{file_path}'")
+
+        # Optimizer.
+        if (
+            self.optimizer_state
+            and state.model.optimizer is not None
+        ):
+            checkpoint["optimizer_state_dict"] = deep_to(
+                state.model.optimizer.state_dict(),
+                "cpu",
+            )
+
+        # AMP GradScaler.
+        if hasattr(state.model, "scaler"):
+            checkpoint["scaler_state_dict"] = deep_to(
+                state.model.scaler.state_dict(),
+                "cpu",
+            )
+
+        # LR scheduler.
+        if (
+            self.scheduler_callback is not None
+            and self.scheduler_callback.scheduler is not None
+        ):
+            checkpoint["lr_scheduler_state_dict"] = deep_to(
+                self.scheduler_callback.scheduler.state_dict(),
+                "cpu",
+            )
+
+        torch.save(checkpoint, file_path)
+
+        state.logger.info(
+            f"Model saved to '{file_path}'"
+        )
