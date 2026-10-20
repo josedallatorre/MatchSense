@@ -23,6 +23,7 @@ def parse_arguments():
     parser.add_argument("--gpu_id", default=0, type=int)
     parser.add_argument("--challenge", action="store_true")
     parser.add_argument("--use_saved_predictions", action="store_true")
+    parser.add_argument("--model", type=str)
     return parser.parse_args()
 
 
@@ -108,10 +109,13 @@ def predict_game(predictor: MultiDimStackerPredictor,
 
 
 def predict_fold(experiment: str, fold, gpu_id: int,
-                 challenge: bool, use_saved_predictions: bool):
+                 challenge: bool, use_saved_predictions: bool, model:str):
     print(f"Predict games: {experiment=}, {fold=}, {gpu_id=} {challenge=}")
     experiment_dir = constants.experiments_dir / experiment / f"fold_{fold}"
-    model_path = get_best_model_path(experiment_dir)
+    if model is not None:
+        model_path = Path(model)
+    else:
+        model_path = get_best_model_path(experiment_dir)
     print("Model path:", model_path)
     predictor = MultiDimStackerPredictor(model_path, device=f"cuda:{gpu_id}", tta=TTA)
     if challenge:
@@ -135,7 +139,6 @@ def predict_fold(experiment: str, fold, gpu_id: int,
 
 if __name__ == "__main__":
     args = parse_arguments()
-
     if args.folds == "train":
         predict_fold(args.experiment, "train", args.gpu_id,
                      args.challenge, args.use_saved_predictions)
@@ -147,4 +150,4 @@ if __name__ == "__main__":
 
         for fold in folds:
             predict_fold(args.experiment, fold, args.gpu_id,
-                         args.challenge, args.use_saved_predictions)
+                         args.challenge, args.use_saved_predictions, args.model)
