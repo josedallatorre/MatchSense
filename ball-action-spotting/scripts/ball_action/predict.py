@@ -68,44 +68,66 @@ def predict_video(predictor: MultiDimStackerPredictor,
     assert video_info["fps"] == constants.video_fps
 
     raw_predictions_path = game_prediction_dir / f"{half}_raw_predictions.npz"
+    if use_saved_predictions and raw_predictions_path.exists():
+        print(f"Loading saved predictions: {raw_predictions_path}")
 
-    if use_saved_predictions:
-        with np.load(str(raw_predictions_path)) as raw_predictions:
-            frame_indexes = raw_predictions["frame_indexes"]
-            raw_predictions = raw_predictions["raw_predictions"]
+        with np.load(str(raw_predictions_path)) as saved:
+            frame_indexes = saved["frame_indexes"]
+            raw_predictions = saved["raw_predictions"]
+
     else:
         print("Predict video:", video_path)
+
         frame_indexes, raw_predictions = get_raw_predictions(
             predictor, video_path, video_info["frame_count"]
         )
+
         np.savez(
             raw_predictions_path,
             frame_indexes=frame_indexes,
             raw_predictions=raw_predictions,
         )
+
         print("Raw predictions saved to", raw_predictions_path)
 
     class2actions = raw_predictions_to_actions(frame_indexes, raw_predictions)
     return class2actions
 
-
-def predict_game(predictor: MultiDimStackerPredictor,
-                 game: str,
-                 prediction_dir: Path,
-                 use_saved_predictions: bool):
+def predict_game(
+    predictor: MultiDimStackerPredictor,
+    game: str,
+    prediction_dir: Path,
+    use_saved_predictions: bool,
+):
     game_dir = constants.soccernet_dir / game
     game_prediction_dir = prediction_dir / game
     game_prediction_dir.mkdir(parents=True, exist_ok=True)
+
+    results_path = game_prediction_dir / "results_spotting.json"
+
+    if use_saved_predictions and results_path.exists():
+        print(f"Game already completed, skipping: {game}")
+        return
+
     print("Predict game:", game)
 
     half2class_actions = dict()
+
     for half in constants.halves:
         class_actions = predict_video(
-            predictor, half, game_dir, game_prediction_dir, use_saved_predictions
+            predictor,
+            half,
+            game_dir,
+            game_prediction_dir,
+            use_saved_predictions,
         )
         half2class_actions[half] = class_actions
 
-    prepare_game_spotting_results(half2class_actions, game, prediction_dir)
+    prepare_game_spotting_results(
+        half2class_actions,
+        game,
+        prediction_dir,
+    )
 
 
 def predict_fold(experiment: str, fold, gpu_id: int,
