@@ -32,7 +32,7 @@ challenge_games = [
 # ]
 
 labels_filename = "Labels-ball.json"
-videos_extension = 'mp4'
+videos_extension = 'mkv'
 
 classes = ['PASS', 'DRIVE', 'HEADER', 'HIGH PASS', 'OUT', 'CROSS', 'THROW IN',
            'SHOT', 'BALL PLAYER BLOCK', 'PLAYER SUCCESSFUL TACKLE', 'FREE KICK',
