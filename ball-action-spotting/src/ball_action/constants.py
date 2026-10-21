@@ -42,7 +42,7 @@ num_classes = len(classes)
 target2class: dict[int, str] = {trg: cls for trg, cls in enumerate(classes)}
 class2target: dict[str, int] = {cls: trg for trg, cls in enumerate(classes)}
 
-num_halves = 1
+num_halves = 2
 halves = list(range(1, num_halves + 1))
 postprocess_params = {
     "gauss_sigma": 3.0,
