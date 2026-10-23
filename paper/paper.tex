@@ -1,5 +1,5 @@
 \documentclass[conference]{IEEEtran}
-\IEEEoverridecommandlockouts
+%\IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 %Template version as of 6/27/2024
 
@@ -45,7 +45,6 @@ gianluca.foresti@uniud.it}
 \maketitle
 
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
 This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
 or Math in Paper Title or Abstract.
 \end{abstract}
@@ -55,101 +54,21 @@ component, formatting, style, styling, insert.
 \end{IEEEkeywords}
 
 \section{Introduction}
+TODO: write Introduction
 % Motivation, problem, research question, contributions.
-
 \section{Related Work}
-\subsection{Soccer Action Spotting}
-ball action spotting, focusing on retrieving all timestamps related to the soccer ball change of state, \\
-Unlike the SoccerNet Action Spotting Challenge, that uses the tight average-mAP ([1-5] seconds tolerance), this challenge focuses on accurately spotting the ball events with the mAP@1 (1 second tolerance).
-\subsection{Convolutional Temporal Modeling}
-\subsection{Transformer-Based Video Modeling}
-
-\section{Task and Baseline}
-\subsection{Task Definition}
-This novel task of ball action spotting consists in localizing the exact time when two types of actions related to the soccer ball occur: pass and drive. These actions are anchored with a single timestamp corresponding to the exact time the ball leaves a player’s foot for a pass event and when a player touches the ball to control it for a drive event.
-\subsection{Dataset}
-The dataset is provided by Footovision and is composed of 7 games with a total of 11,041 annotated timestamps, as well as 2 extra segregated games for the challenge set.\\
-The dataset is \cite{Deliège2020SoccerNetv2}\\
-The data consists of 7 videos of English Football League games, each broadcast in 720p quality. We don't provide extracted features to encourage the development of end-to-end methods.  The challenge set is composed of 2 separate games. Additionally, participants are encouraged to leverage the 500 unannotated games from the Action Spotting challenge as a resource for this task.
-\subsection{Baseline Architecture}
-\begin{figure}[htbp]
-\centerline{\includegraphics[width=0.5\textwidth]{model.png}}
-\caption{Model second solution}
-\label{fig}
-\end{figure}
-\subsection{Training and Inference}
-
-\section{Proposed Method}
-\subsection{Architecture Overview}
-\subsection{Temporal Feature Representation}
-\subsection{Transformer Encoder}
-\subsection{Prediction and Postprocessing}
-
-\section{Experimental Setup}
-\subsection{Implementation Details}
-\subsection{Evaluation Metrics}
-\subsection{Experimental Configurations}
-
-\section{Results and Discussion}
-\subsection{Comparison with the Baseline}
-\subsection{Effect of Temporal Context}
-\subsection{Ablation Study}
-\subsection{Error Analysis}
-
-\section{Conclusion and Future Work}
-
-
-\section{Introduction}
-This document is a model and instructions for \LaTeX.
-Please observe the conference page limits. For more information about how to become an IEEE Conference author or how to write your paper, please visit   IEEE Conference Author Center website: https://conferences.ieeeauthorcenter.ieee.org/.
-
-\section{ball action spotting challenge}
-
-\subsection{Task description} 
-
-
-
-
-\section{the results}
-Here we talk about the results.\\
-\begin{table}[t]
-    \caption{Ball Action spotting leaderboard. The main metric for the leaderboard and best performances are in bold. Team names with a superscript have provided a summary that may be found in Appendix~\ref{app:ballspotting} or in Section~\ref{sub:ballactionspottingwinner} for the winning team.
-    }
-    \label{tab:LeaderboardBallSpotting}
-    \centering
-\resizebox{\columnwidth}{!}{%
-    \begin{tabular}{l||c|c|c|c|c||c}
-% Title
-\multirow{2}{*}{Participants} & \multicolumn{5}{c||}{\textbf{mAP}} & \multicolumn{1}{c}{Average-mAP} \\ %\cline{2-7}
-&  \textbf{@1} & @2 & @3 & @4 & @5 & tight \\ \midrule
-% Teams
-\textbf{Ruslan Baikulov}$^{B1}$ 	&\textbf{86.47} 	&\textbf{87.98} 	&\textbf{88.28} 	&\textbf{88.18} 	&\textbf{87.95} 	&\textbf{87.91}\\
-FDL@ZLab$^{B2}$ 	&83.39 	&85.19 	&85.81 	&86.00 	&86.19 	&85.45\\
-BASIK$^{B3}$	&82.06 	&83.39 	&83.86 	&84.04 	&83.91 	&83.57\\
-FC Pixel Nets$^{B4}$ 	&81.89 	&83.22 	&83.97 	&83.85 	&84.02 &	83.50\\
-play 	&79.74 	&82.58 	&84.06 	&84.49 	&84.34 	&83.29\\
-Baseline~\cite{Hong2022Spotting}* 	&62.72 	&69.24 	&72.57 	&74.29 	&74.80 	&71.21\\
-
-    \end{tabular}%
-}
-\caption{Ball Action Spotting leaderboard. The main metric for the leaderboard and best performances are in bold.}
-\end{table}
-After the table
-
-
-\section{First solution with paper}
-Here we talk about the solution with the paper.\\ Second solution I based my solution on Our method, Boosted Model Ensembling (BME), is based on the end-to-end baseline model, E2E-Spot, as presented in [10]? citation.\\
+\subsection{First solution with paper}
+Here we talk about the solution with the paper.\\ 
+ Our method, Boosted Model Ensembling (BME), is based on the end-to-end baseline model, E2E-Spot, as presented in [10]? citation.\\
  We generate several variants of the E2E-Spot model to create a candidate model set and propose a strategy for selecting appropriate model members from this set while assigning appropriate weights to each selected model. More details can be found in [35]? citation.\\
   The resulting ensemble model takes into account uncertainties in event length, optimal network architectures, and optimizers, making it more robust than the baseline model. Our approach has the potential to handle various video event analysis tasks.
-
-After the table.
-\section{Second solution I based my solution on}
+\subsection{Second solution I based my solution on}
 Solution Key points: \\
 Efficient model architecture for extracting information from video data
 Multi-stage training (transfer learning, fine-tuning with long sequences)
 Fast video loading for training (GPU based, no need for preprocessing with extracting images)
 Model
-The model architecture employed in this solution utilizes a slow fusion approach, incorporating 2D convolutions in the early stages and 3D convolutions in the later stages. This architectural choice made one of the most significant contributions to the overall metric outcome. It effectively improved the mAP@1 metric on both the test and challenge sets, resulting in an approximate increase of 15% (from 65% to 80%) compared to an approach utilizing 2D CNN early fusion.
+The model architecture employed in this solution utilizes a slow fusion approach, incorporating 2D convolutions in the early stages and 3D convolutions in the later stages. This architectural choice made one of the most significant contributions to the overall metric outcome. It effectively improved the mAP@1 metric on both the test and challenge sets, resulting in an approximate increase of 15\% (from 65\% to 80\%) compared to an approach utilizing 2D CNN early fusion.
 
 model
 
@@ -252,9 +171,79 @@ ohkawa3 (link)
 
 
 askldjkljekle\\
-\section{My solution}
-My solution
-research question is supposed to be about replacing the temporal 3D CNN with a Transformer
+
+\subsection{Convolutional Temporal Modeling}
+\subsection{Transformer-Based Video Modeling}
+\section{Proposed Method}
+\subsection{Task Definition}
+This novel task of ball action spotting consists in localizing the exact time when two types of actions related to the soccer ball occur: pass and drive. These actions are anchored with a single timestamp corresponding to the exact time the ball leaves a player’s foot for a pass event and when a player touches the ball to control it for a drive event.
+
+\subsection{Soccer Action Spotting}
+ball action spotting, focusing on retrieving all timestamps related to the soccer ball change of state, \\
+
+\subsection{Architecture Overview}
+\textbf{Research question is supposed to be about replacing the temporal 3D CNN with a Transformer}
+
+\subsection{Baseline Architecture}
+\begin{figure}[htbp]
+\centerline{\includegraphics[width=0.5\textwidth]{model.png}}
+\caption{Model second solution}
+\label{fig}
+\end{figure}
+\subsection{Training and Inference}
+\subsection{Temporal Feature Representation}
+\subsection{Transformer Encoder}
+\subsection{Prediction and Postprocessing}
+
+\section{Experimental Setup}
+\subsection{Implementation Details}
+\subsection{Evaluation Metrics}
+\subsection{Experimental Configurations}
+
+\section{Results and Discussion}
+\subsection{Dataset}
+The dataset is provided by Footovision and is composed of 7 games with a total of 11,041 annotated timestamps, as well as 2 extra segregated games for the challenge set.\\
+The dataset is \cite{Deliège2020SoccerNetv2}\\
+The data consists of 7 videos of English Football League games, each broadcast in 720p quality. We don't provide extracted features to encourage the development of end-to-end methods.  The challenge set is composed of 2 separate games. Additionally, participants are encouraged to leverage the 500 unannotated games from the Action Spotting challenge as a resource for this task. \\
+The dataset available is relatively small compared to the action spotting task,
+encouraging participants to explore semi-supervised, selfsupervised, or transfer learning methods using the 500 unlabeled broadcast games. A significant enhancement this
+year is the inclusion of 12 classes of ball actions, requiring
+more precise classification. Consequently, simple categorizations like “pass” are insufficient as specific pass types
+must be clearly identified.
+\subsection{Evaluation}
+Unlike the SoccerNet Action Spotting Challenge, that uses the tight average-mAP ([1-5] seconds tolerance), this challenge focuses on accurately spotting the ball events with the mAP@1 (1 second tolerance).
+\subsection{Comparison with the Baseline}
+Here we need to compare to other results.\\
+\begin{table}[t]
+    \caption{Ball Action spotting leaderboard. The main metric for the leaderboard and best performances are in bold. Team names with a superscript have provided a summary that may be found in Appendix~\ref{app:ballspotting} or in Section~\ref{sub:ballactionspottingwinner} for the winning team.
+    }
+    \label{tab:LeaderboardBallSpotting}
+    \centering
+\resizebox{\columnwidth}{!}{%
+    \begin{tabular}{l||c|c|c|c|c||c}
+% Title
+\multirow{2}{*}{Participants} & \multicolumn{5}{c||}{\textbf{mAP}} & \multicolumn{1}{c}{Average-mAP} \\ %\cline{2-7}
+&  \textbf{@1} & @2 & @3 & @4 & @5 & tight \\ \midrule
+% Teams
+\textbf{Ruslan Baikulov}$^{B1}$ 	&\textbf{86.47} 	&\textbf{87.98} 	&\textbf{88.28} 	&\textbf{88.18} 	&\textbf{87.95} 	&\textbf{87.91}\\
+FDL@ZLab$^{B2}$ 	&83.39 	&85.19 	&85.81 	&86.00 	&86.19 	&85.45\\
+BASIK$^{B3}$	&82.06 	&83.39 	&83.86 	&84.04 	&83.91 	&83.57\\
+FC Pixel Nets$^{B4}$ 	&81.89 	&83.22 	&83.97 	&83.85 	&84.02 &	83.50\\
+play 	&79.74 	&82.58 	&84.06 	&84.49 	&84.34 	&83.29\\
+Baseline~\cite{Hong2022Spotting}* 	&62.72 	&69.24 	&72.57 	&74.29 	&74.80 	&71.21\\
+
+    \end{tabular}%
+}
+\caption{Ball Action Spotting leaderboard. The main metric for the leaderboard and best performances are in bold.}
+\end{table}
+After the table
+\subsection{Effect of Temporal Context}
+\subsection{Ablation Study}
+\subsection{Error Analysis}
+
+\section{Conclusion and Future Work}
+
+
 
 
 \subsection{\LaTeX-Specific Advice}

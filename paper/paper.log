@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  20 OCT 2026 17:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  23 OCT 2026 17:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -115,9 +115,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 \IEEEPARstartletwidth=\dimen173
 \c@IEEEbiography=\count290
 \@IEEEtranrubishbin=\box54
-)
-** ATTENTION: Overriding command lockouts (line 2).
-(/usr/local/texlive/2026/texmf-dist/tex/latex/cite/cite.sty
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/cite/cite.sty
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
@@ -348,38 +346,47 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-
-LaTeX Warning: Reference `app:ballspotting' on page 1 undefined on input line 1
-10.
-
-
-LaTeX Warning: Reference `sub:ballactionspottingwinner' on page 1 undefined on 
-input line 110.
-
-
-LaTeX Warning: Citation `Hong2022Spotting' on page 1 undefined on input line 12
-7.
-
-<./images/model.png, id=1, 560.8453pt x 406.51875pt>
-File: ./images/model.png Graphic file (type png)
-<use ./images/model.png>
-Package pdftex.def Info: ./images/model.png  used on input line 138.
-(pdftex.def)             Requested size: 258.0pt x 187.00089pt.
+** WARNING: \thanks is locked out when in conference mode (line 45).
 [1{/usr/local/texlive/2026/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/l
 ocal/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
-] [2 <./images/model.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+]
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
 
  []
 
-<./images/fig1.png, id=18, 249.3315pt x 189.22694pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2]
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
+
+ []
+
+<./images/model.png, id=13, 560.8453pt x 406.51875pt>
+File: ./images/model.png Graphic file (type png)
+<use ./images/model.png>
+Package pdftex.def Info: ./images/model.png  used on input line 189.
+(pdftex.def)             Requested size: 258.0pt x 187.00089pt.
+
+LaTeX Warning: Reference `app:ballspotting' on page 3 undefined on input line 2
+14.
+
+
+LaTeX Warning: Reference `sub:ballactionspottingwinner' on page 3 undefined on 
+input line 214.
+
+
+LaTeX Warning: Citation `Hong2022Spotting' on page 3 undefined on input line 23
+1.
+
+<./images/fig1.png, id=15, 249.3315pt x 189.22694pt>
 File: ./images/fig1.png Graphic file (type png)
 <use ./images/fig1.png>
-Package pdftex.def Info: ./images/fig1.png  used on input line 279.
+Package pdftex.def Info: ./images/fig1.png  used on input line 266.
 (pdftex.def)             Requested size: 249.33087pt x 189.22647pt.
-(./paper.bbl [3])
+(./paper.bbl [3 <./images/model.png>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -407,20 +414,20 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4381 strings out of 467050
- 68512 string characters out of 5406312
- 503359 words of memory out of 5000000
- 33710 multiletter control sequences out of 15000+600000
- 674688 words of font info for 125 fonts, out of 8000000 for 9000
+ 4368 strings out of 467050
+ 68379 string characters out of 5406312
+ 504873 words of memory out of 5000000
+ 33702 multiletter control sequences out of 15000+600000
+ 671546 words of font info for 117 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,65p,681b,307s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,681b,305s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></u
 sr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/t
 exlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/20
 26/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-d
 ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (4 pages, 249141 bytes).
+Output written on paper.pdf (4 pages, 249061 bytes).
 PDF statistics:
  52 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream
