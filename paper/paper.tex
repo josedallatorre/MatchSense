@@ -57,6 +57,7 @@ component, formatting, style, styling, insert.
 TODO: write Introduction
 % Motivation, problem, research question, contributions.
 \section{Related Work}
+In order to understand the salient actions of a broadcast soccer game, SoccerNet introduces the task of action spotting, which consists in finding all the actions occurring in the videos. Beyond soccer understanding, this task addresses the more general problem of retrieving moments with a specific semantic meaning in long untrimmed videos.
 \subsection{First solution with paper}
 Here we talk about the solution with the paper.\\ 
  Our method, Boosted Model Ensembling (BME), is based on the end-to-end baseline model, E2E-Spot, as presented in [10]? citation.\\
@@ -176,7 +177,8 @@ askldjkljekle\\
 \subsection{Transformer-Based Video Modeling}
 \section{Proposed Method}
 \subsection{Task Definition}
-This novel task of ball action spotting consists in localizing the exact time when two types of actions related to the soccer ball occur: pass and drive. These actions are anchored with a single timestamp corresponding to the exact time the ball leaves a player’s foot for a pass event and when a player touches the ball to control it for a drive event.
+This novel task of ball action spotting consists in localizing the exact time when two types of actions related to the soccer ball occur: pass and drive. These actions are anchored with a single timestamp corresponding to the exact time the ball leaves a player’s foot for a pass event and when a player touches the ball to control it for a drive event. \\
+Ball action spotting involves identifying both the timing and type of ball-related actions across 12 classes in our dataset. Each action is marked by a single timestamp. In contrast to the SoccerNet Action Spotting Challenge, our videos feature a higher density of actions.
 
 \subsection{Soccer Action Spotting}
 ball action spotting, focusing on retrieving all timestamps related to the soccer ball change of state, \\
@@ -206,10 +208,10 @@ The dataset is provided by Footovision and is composed of 7 games with a total o
 The dataset is \cite{Deliège2020SoccerNetv2}\\
 The data consists of 7 videos of English Football League games, each broadcast in 720p quality. We don't provide extracted features to encourage the development of end-to-end methods.  The challenge set is composed of 2 separate games. Additionally, participants are encouraged to leverage the 500 unannotated games from the Action Spotting challenge as a resource for this task. \\
 The dataset available is relatively small compared to the action spotting task,
-encouraging participants to explore semi-supervised, selfsupervised, or transfer learning methods using the 500 unlabeled broadcast games. A significant enhancement this
+encouraging participants to explore semi-supervised, selfsupervised, or transfer learning methods using the 500 unlabeled broadcast games. \\ A significant enhancement this
 year is the inclusion of 12 classes of ball actions, requiring
-more precise classification. Consequently, simple categorizations like “pass” are insufficient as specific pass types
-must be clearly identified.
+more precise classification. Consequently, simple categorizations like “pass” are insufficient as specific pass types must be clearly identified. \\
+We provide annotation for all two types of soccer ball actions: {Pass, Drive}. In 2024, we extend it to 12 different classes of soccer ball actions: {Pass, Drive, Header, High Pass, Out, Cross, Throw In, Shot, Ball Player Block, Player Successful Tackle, Free Kick, Goal}
 \subsection{Evaluation}
 Unlike the SoccerNet Action Spotting Challenge, that uses the tight average-mAP ([1-5] seconds tolerance), this challenge focuses on accurately spotting the ball events with the mAP@1 (1 second tolerance).
 \subsection{Comparison with the Baseline}
