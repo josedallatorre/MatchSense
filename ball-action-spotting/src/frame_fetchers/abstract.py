@@ -48,23 +48,20 @@ class AbstractFrameFetcher(metaclass=abc.ABCMeta):
         return frame
 
     def fetch_frames(self, indexes: list[int]) -> torch.Tensor:
-        min_frame_index = min(indexes)
-        max_frame_index = max(indexes)
+        if not indexes:
+            return torch.empty(
+                (0, self.height, self.width),
+                dtype=torch.uint8,
+                device=f"cuda:{self.gpu_id}",
+            )
 
-        index2frame = dict()
-        frame_indexes_set = set(indexes)
-        for index in range(min_frame_index, max_frame_index + 1):
-            if index not in frame_indexes_set:
-                self._next_decode()
-                continue
-            if index == min_frame_index:
-                frame_tensor = self.fetch_frame(index)
-            else:
-                frame_tensor = self.fetch_frame()
-            index2frame[index] = frame_tensor
+        if any(i < 0 or i >= self.num_frames for i in indexes):
+            raise RuntimeError(f"Frame indexes out of range: {indexes}")
 
-        frames = [index2frame[index] for index in indexes]
+        # Preserve the caller's order, including duplicate indexes.
+        frames = [self.fetch_frame(i) for i in indexes]
         return torch.stack(frames, dim=0)
+
 
     @abc.abstractmethod
     def _next_decode(self) -> Any:
