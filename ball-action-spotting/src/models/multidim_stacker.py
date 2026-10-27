@@ -212,7 +212,7 @@ class MultiDimStacker(nn.Module):
         temporal_layer = nn.TransformerEncoderLayer(
             d_model=self.num_3d_features,
             nhead=8,
-            dim_feedforward=768,
+            dim_feedforward=256,
             dropout=0.1,
             batch_first=True,
         )
