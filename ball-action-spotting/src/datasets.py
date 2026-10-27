@@ -60,6 +60,11 @@ class ActionDataset(metaclass=abc.ABCMeta):
                           frame_fetcher_class: Type[AbstractFrameFetcher],
                           gpu_id: int = 0):
         video_data = self.videos_data[video_index]
+        print(
+        f"[FrameFetcher] Using {frame_fetcher_class.__name__} "
+        f"on GPU {gpu_id} for {video_data['video_path']}",
+        flush=True,
+        )
         frame_fetcher = frame_fetcher_class(
             video_data["video_path"],
             gpu_id=gpu_id

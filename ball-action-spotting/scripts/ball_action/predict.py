@@ -7,7 +7,6 @@ import numpy as np
 from src.ball_action.annotations import raw_predictions_to_actions, prepare_game_spotting_results
 from src.utils import get_best_model_path, get_video_info
 from src.predictors import MultiDimStackerPredictor
-#from src.frame_fetchers import OpencvFrameFetcher
 from src.frame_fetchers import OpencvFrameFetcher
 
 try:
