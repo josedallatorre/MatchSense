@@ -29,7 +29,7 @@ def get_game_videos_data(game: str,
 
     half2video_data = dict()
     for half in halves:
-        half_video_path = str(game_dir / f"{half}_{resolution}.{constants.videos_extension}") # f"{half}_{resolution}.mkv")
+        half_video_path = str(game_dir / f"{half}_{resolution}.mkv") # )f"{resolution}.{constants.videos_extension}
         half2video_data[half] = dict(
             video_path=half_video_path,
             game=game,
