@@ -1,55 +1,54 @@
-from typing import Any
 from pathlib import Path
+from typing import Any
 
 import torch
-
-import PyNvCodec as nvc
-import PytorchNvCodec as pnvc
-
+import PyNvVideoCodec as nvc
 
 from src.frame_fetchers.abstract import AbstractFrameFetcher
 
 
 class NvDecFrameFetcher(AbstractFrameFetcher):
     def __init__(self, video_path: str | Path, gpu_id: int):
-        super().__init__(video_path=video_path, gpu_id=gpu_id)
-        self._nv_dec = nvc.PyNvDecoder(str(self.video_path), self.gpu_id)
-        self.num_frames = self._nv_dec.Numframes()
-        self.width = self._nv_dec.Width()
-        self.height = self._nv_dec.Height()
+        super().__init__(video_path, gpu_id)
 
-        self._current_index = 0  # It seems VPF skips first frame at start
+        self._decoder = nvc.SimpleDecoder(
+            str(self.video_path),
+            gpu_id=gpu_id,
+            use_device_memory=True,
+            output_color_type=nvc.OutputColorType.RGB,
+        )
 
-        self._to_grayscale = nvc.PySurfaceConverter(
-            self.width,
-            self.height,
-            nvc.PixelFormat.NV12,
-            nvc.PixelFormat.Y,
-            self.gpu_id,
-        )
-        self._cc_ctx = nvc.ColorspaceConversionContext(
-            nvc.ColorSpace.BT_601, nvc.ColorRange.MPEG
-        )
+        metadata = self._decoder.get_stream_metadata()
+        self.num_frames = len(self._decoder)
+        self.width = metadata.width
+        self.height = metadata.height
 
     def _next_decode(self) -> Any:
-        nv12_surface = self._nv_dec.DecodeSingleSurface()
-        return nv12_surface
+        index = self._current_index + 1
+        if index >= self.num_frames:
+            raise RuntimeError("End of frames")
+        return self._decoder[index]
 
     def _seek_and_decode(self, index: int) -> Any:
-        # Apparently frame indexing starts from 1 in VPF unlike OpenCV
-        seek_ctx = nvc.SeekContext(index - 1)
-        nv12_surface = self._nv_dec.DecodeSingleSurface(seek_context=seek_ctx)
-        return nv12_surface
+        return self._decoder[index]
 
     def _convert(self, frame: Any) -> torch.Tensor:
-        grayscale_surface = self._to_grayscale.Execute(frame, self._cc_ctx)
-        surf_plane = grayscale_surface.PlanePtr()
-        frame_tensor = pnvc.makefromDevicePtrUint8(
-            surf_plane.GpuMem(),
-            surf_plane.Width(),
-            surf_plane.Height(),
-            surf_plane.Pitch(),
-            surf_plane.ElemSize(),
-        )
-        frame_tensor.resize_(self.height, self.width)
-        return frame_tensor
+        rgb = torch.from_dlpack(frame)
+
+        if rgb.ndim != 3:
+            raise ValueError(f"Unexpected frame shape: {tuple(rgb.shape)}")
+
+        if rgb.shape[-1] == 3:
+            r, g, b = rgb.unbind(dim=-1)
+        elif rgb.shape[0] == 3:
+            r, g, b = rgb.unbind(dim=0)
+        else:
+            raise ValueError(f"Expected RGB frame, got {tuple(rgb.shape)}")
+
+        gray = (
+            0.299 * r.float()
+            + 0.587 * g.float()
+            + 0.114 * b.float()
+        ).round().clamp(0, 255).to(torch.uint8)
+
+        return gray
