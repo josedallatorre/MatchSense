@@ -7,7 +7,14 @@ import numpy as np
 from src.ball_action.annotations import raw_predictions_to_actions, prepare_game_spotting_results
 from src.utils import get_best_model_path, get_video_info
 from src.predictors import MultiDimStackerPredictor
+#from src.frame_fetchers import OpencvFrameFetcher
 from src.frame_fetchers import OpencvFrameFetcher
+
+try:
+    from src.frame_fetchers.nvdec import NvDecFrameFetcher
+except (ImportError, OSError) as exc:
+    print(f"NVDEC unavailable: {exc}. Falling back to OpenCV.")
+    NvDecFrameFetcher = None
 from src.ball_action import constants
 
 
@@ -30,7 +37,16 @@ def parse_arguments():
 def get_raw_predictions(predictor: MultiDimStackerPredictor,
                         video_path: Path,
                         frame_count: int) -> tuple[list[int], np.ndarray]:
-    frame_fetcher = OpencvFrameFetcher(video_path, gpu_id=predictor.device.index)
+    if NvDecFrameFetcher is not None:
+        frame_fetcher = NvDecFrameFetcher(
+            video_path, gpu_id=predictor.device.index
+        )
+        print("Using NVIDIA GPU decoder")
+    else:
+        frame_fetcher = OpencvFrameFetcher(
+            video_path, gpu_id=predictor.device.index
+        )
+        print("Using OpenCV decoder")
     frame_fetcher.num_frames = frame_count
 
     indexes_generator = predictor.indexes_generator
