@@ -120,6 +120,11 @@ class TrainActionDataset(ActionDataset):
         video_index = random.randrange(0, self.num_videos)
         frame_index = np.random.choice(self.videos_frame_indexes[video_index],
                                        p=self.videos_sampling_weights[video_index])
+        print(
+            f"Currently processing frame: {frame_index} | "
+            f"Video: {self.videos_data[video_index]['video_path']}",
+            flush=True
+        )
         save_zone = 1
         if self.frame_index_shaker is not None:
             save_zone += max(abs(sh) for sh in self.frame_index_shaker.shifts)
@@ -129,6 +134,10 @@ class TrainActionDataset(ActionDataset):
         frame_indexes = self.indexes_generator.make_stack_indexes(frame_index)
         if self.frame_index_shaker is not None:
             frame_indexes = self.frame_index_shaker(frame_indexes)
+        print(
+            f"Frame stack indices: {frame_indexes}",
+            flush=True
+        )
         return video_index, frame_indexes
 
 

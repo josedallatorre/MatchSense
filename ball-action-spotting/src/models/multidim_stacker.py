@@ -193,22 +193,61 @@ class MultiDimStacker(nn.Module):
             ),
             norm_act_layer(num_3d_features, inplace=True)
         )
+        # Preserve a coarse spatial grid instead of collapsing H x W to 1 x 1.
+        # Input feature map: (B, 192, 23, 40)
+        # Output feature map: (B, 192, 6, 10)
+        self.spatial_pool = nn.AdaptiveAvgPool2d((6, 10))
 
-        self.spatial_pool  = nn.AdaptiveAvgPool2d((1,1))
+        self.grid_h = 6
+        self.grid_w = 10
+        self.num_spatial_tokens = self.grid_h * self.grid_w
 
-        self.positional_embedding = LearnedPositionalEncoding(self.num_stacks ,self.num_3d_features)
+        # Temporal positional encoding: one position per time step
+        self.temporal_positional_embedding = LearnedPositionalEncoding(
+            max_seq_len=self.num_stacks,
+            dim=self.num_3d_features,
+        )
+
+        # Temporal attention: operates across time at each spatial location
+        temporal_layer = nn.TransformerEncoderLayer(
+            d_model=self.num_3d_features,
+            nhead=8,
+            dim_feedforward=768,
+            dropout=0.1,
+            batch_first=True,
+        )
 
         self.temporal_encoder = nn.TransformerEncoder(
-            nn.TransformerEncoderLayer(
-                d_model=self.num_3d_features,
-                nhead=8,
-                batch_first=True
-                ),
-            num_layers=2
+            temporal_layer,
+            num_layers=2,
         )
-        self.temporal_pool = nn.AdaptiveAvgPool1d(1)
 
-        self.classifier = nn.Linear(self.num_3d_features, num_classes, bias=True)
+        # Spatial positional encoding: identifies locations in the feature grid
+        self.spatial_positional_embedding = LearnedPositionalEncoding(
+            max_seq_len=self.num_spatial_tokens,
+            dim=self.num_3d_features,
+        )
+
+        # Spatial attention: lets locations exchange information within each frame
+        spatial_layer = nn.TransformerEncoderLayer(
+            d_model=self.num_3d_features,
+            nhead=8,
+            dim_feedforward=768,
+            dropout=0.1,
+            batch_first=True,
+        )
+
+        self.spatial_encoder = nn.TransformerEncoder(
+            spatial_layer,
+            num_layers=1,
+        )
+
+        # Final classifier
+        self.classifier = nn.Linear(
+            self.num_3d_features,
+            num_classes,
+        )
+
 
     def forward_2d(self, x):
         b, t, h, w = x.shape  # (2, 15, 736, 1280)
@@ -220,21 +259,86 @@ class MultiDimStacker(nn.Module):
         _, _, h, w = x.shape
         x = x.view(b, num_stacks, self.num_3d_features, h, w)  # (2, 5, 192, 23, 40)
         return x
-
+    
     def forward_3d(self, x):
-        b, t, c, h, w = x.shape  # (2, 5, 192, 23, 40)
-        assert c == self.num_3d_features and t == self.num_stacks
-        #x = x.transpose(1, 2)  # (2, 192, 5, 23, 40)
-        x = x.reshape(b * self.num_stacks, self.num_3d_features, h, w)  # (10, 192, 23, 40)
+        """
+        Factorized spatial-temporal Transformer.
+
+        Input:
+            x: (B, T, C, H, W)
+
+        Output:
+            (B, C)
+        """
+        b, t, c, h, w = x.shape
+
+        assert c == self.num_3d_features
+        assert t == self.num_stacks
+
+        # ---------------------------------------------------------
+        # 1. Reduce spatial resolution while preserving locations
+        # ---------------------------------------------------------
+        # (B, T, C, H, W) -> (B*T, C, H, W)
+        x = x.reshape(b * t, c, h, w)
+
+        # (B*T, C, H, W) -> (B*T, C, 6, 10)
         x = self.spatial_pool(x)
-        x = x.flatten(1)
-        x = x.reshape(b, self.num_stacks, self.num_3d_features)
-        x = self.positional_embedding(x)
+
+        # (B*T, C, 6, 10) -> (B, T, C, S)
+        # S = 6 * 10 = 60 spatial locations
+        x = x.flatten(2).reshape(
+            b, t, c, self.num_spatial_tokens
+        )
+
+        # (B, T, C, S) -> (B, S, T, C)
+        x = x.permute(0, 3, 1, 2).contiguous()
+
+        # ---------------------------------------------------------
+        # 2. Temporal attention at each spatial location
+        # ---------------------------------------------------------
+        # Each location gets a sequence of T feature vectors.
+        # (B, S, T, C) -> (B*S, T, C)
+        x = x.reshape(
+            b * self.num_spatial_tokens,
+            t,
+            c,
+        )
+
+        x = self.temporal_positional_embedding(x)
         x = self.temporal_encoder(x)
-        x = x.reshape(b, self.num_3d_features, self.num_stacks)
-        x = self.temporal_pool(x)
-        x = x.reshape(b, self.num_3d_features)
+
+        # Restore spatial and temporal dimensions
+        # (B*S, T, C) -> (B, S, T, C) -> (B, T, S, C)
+        x = x.reshape(
+            b, self.num_spatial_tokens, t, c
+        ).permute(0, 2, 1, 3).contiguous()
+
+        # ---------------------------------------------------------
+        # 3. Spatial attention within each time step
+        # ---------------------------------------------------------
+        # (B, T, S, C) -> (B*T, S, C)
+        x = x.reshape(
+            b * t,
+            self.num_spatial_tokens,
+            c,
+        )
+
+        x = self.spatial_positional_embedding(x)
+        x = self.spatial_encoder(x)
+
+        # ---------------------------------------------------------
+        # 4. Aggregate spatial locations and time
+        # ---------------------------------------------------------
+        # (B*T, S, C) -> (B, T, S, C)
+        x = x.reshape(
+            b, t, self.num_spatial_tokens, c
+        )
+
+        # Average over time and spatial locations
+        # (B, T, S, C) -> (B, C)
+        x = x.mean(dim=(1, 2))
         return x
+
 
     def forward_head(self, x):
         """
