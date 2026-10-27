@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  23 OCT 2026 17:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  26 OCT 2026 16:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -352,39 +352,40 @@ ocal/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 173--174
+Underfull \hbox (badness 10000) in paragraph at lines 174--175
 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2]
-Underfull \hbox (badness 10000) in paragraph at lines 182--183
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
 <./images/model.png, id=13, 560.8453pt x 406.51875pt>
 File: ./images/model.png Graphic file (type png)
 <use ./images/model.png>
-Package pdftex.def Info: ./images/model.png  used on input line 189.
+Package pdftex.def Info: ./images/model.png  used on input line 191.
 (pdftex.def)             Requested size: 258.0pt x 187.00089pt.
 
+Underfull \vbox (badness 1454) has occurred while \output is active []
+
+
+
 LaTeX Warning: Reference `app:ballspotting' on page 3 undefined on input line 2
-14.
+21.
 
 
 LaTeX Warning: Reference `sub:ballactionspottingwinner' on page 3 undefined on 
-input line 214.
+input line 221.
 
 
 LaTeX Warning: Citation `Hong2022Spotting' on page 3 undefined on input line 23
-1.
+8.
 
 <./images/fig1.png, id=15, 249.3315pt x 189.22694pt>
 File: ./images/fig1.png Graphic file (type png)
 <use ./images/fig1.png>
-Package pdftex.def Info: ./images/fig1.png  used on input line 266.
+Package pdftex.def Info: ./images/fig1.png  used on input line 273.
 (pdftex.def)             Requested size: 249.33087pt x 189.22647pt.
 (./paper.bbl [3 <./images/model.png>])
 
@@ -398,9 +399,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[4
-
- <./images/fig1.png (PNG copy)>] (./paper.aux)
+[4 <./images/fig1.png (PNG copy)>] (./paper.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-09-09>
@@ -416,7 +415,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  4368 strings out of 467050
  68379 string characters out of 5406312
- 504873 words of memory out of 5000000
+ 500873 words of memory out of 5000000
  33702 multiletter control sequences out of 15000+600000
  671546 words of font info for 117 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -427,7 +426,7 @@ sr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/t
 exlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/20
 26/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-d
 ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (4 pages, 249061 bytes).
+Output written on paper.pdf (4 pages, 250016 bytes).
 PDF statistics:
  52 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream
