@@ -219,7 +219,7 @@ class MultiDimStacker(nn.Module):
 
         self.temporal_encoder = nn.TransformerEncoder(
             temporal_layer,
-            num_layers=2,
+            num_layers=1,
         )
 
         # Spatial positional encoding: identifies locations in the feature grid
@@ -232,7 +232,7 @@ class MultiDimStacker(nn.Module):
         spatial_layer = nn.TransformerEncoderLayer(
             d_model=self.num_3d_features,
             nhead=8,
-            dim_feedforward=768,
+            dim_feedforward=256,
             dropout=0.1,
             batch_first=True,
         )

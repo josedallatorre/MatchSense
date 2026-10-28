@@ -26,17 +26,20 @@ challenge_games = [
     "england_efl/2019-2020/2019-10-01 - Wigan Athletic - Birmingham City",
 ]
 
-# classes = [
-#     "PASS",
-#     "DRIVE",
-# ]
+classes = [
+    "PASS",
+    "DRIVE",
+]
 
 labels_filename = "Labels-ball.json"
 videos_extension = 'mp4'
 
+"""
+
 classes = ['PASS', 'DRIVE', 'HEADER', 'HIGH PASS', 'OUT', 'CROSS', 'THROW IN',
            'SHOT', 'BALL PLAYER BLOCK', 'PLAYER SUCCESSFUL TACKLE', 'FREE KICK',
            'GOAL']
+"""
 
 num_classes = len(classes)
 target2class: dict[int, str] = {trg: cls for trg, cls in enumerate(classes)}
