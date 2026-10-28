@@ -13,7 +13,7 @@ class NvDecFrameFetcher(AbstractFrameFetcher):
 
         self._decoder = nvc.SimpleDecoder(
             str(self.video_path),
-            gpu_id=gpu_id,
+            gpu_id=1,
             use_device_memory=True,
             output_color_type=nvc.OutputColorType.RGB,
         )
