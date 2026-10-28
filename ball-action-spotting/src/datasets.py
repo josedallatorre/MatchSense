@@ -124,10 +124,6 @@ class TrainActionDataset(ActionDataset):
         frame_indexes = self.indexes_generator.make_stack_indexes(frame_index)
         if self.frame_index_shaker is not None:
             frame_indexes = self.frame_index_shaker(frame_indexes)
-        print(
-            f"Frame stack indices: {frame_indexes}",
-            flush=True
-        )
         return video_index, frame_indexes
 
 
