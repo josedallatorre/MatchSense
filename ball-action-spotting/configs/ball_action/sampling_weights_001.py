@@ -3,7 +3,7 @@ from src.utils import get_lr
 
 
 image_size = (1280, 736)
-batch_size = 1
+batch_size = 2
 base_lr = 3e-4
 frame_stack_size = 15
 
@@ -22,8 +22,8 @@ config = dict(
         clear_pred_window_size=9,
     ),
     metric_accuracy_threshold=0.5,
-    num_nvdec_workers=1,
-    num_opencv_workers=1,  # tune to your Colab/Kaggle CPU core count (check with `!nproc`)
+    num_nvdec_workers=3,
+    num_opencv_workers=1,
     num_epochs=[6, 30],
     stages=["warmup", "train"],
     argus_params={
