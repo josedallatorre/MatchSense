@@ -8,6 +8,7 @@ from importlib.machinery import SourceFileLoader
 
 import torch
 import torch._dynamo
+torch.backends.cuda.enable_flash_sdp(False)
 
 from argus import load_model
 from argus.callbacks import (
