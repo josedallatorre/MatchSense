@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  26 OCT 2026 16:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  30 OCT 2026 16:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -351,43 +351,50 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ocal/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 174--175
-
- []
-
-[2]
+] [2]
 Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
 
-<./images/model.png, id=13, 560.8453pt x 406.51875pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 202--203
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--205
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
+
+ []
+
+<./images/model.png, id=14, 560.8453pt x 406.51875pt>
 File: ./images/model.png Graphic file (type png)
 <use ./images/model.png>
-Package pdftex.def Info: ./images/model.png  used on input line 191.
+Package pdftex.def Info: ./images/model.png  used on input line 224.
 (pdftex.def)             Requested size: 258.0pt x 187.00089pt.
+[3] [4 <./images/model.png>]
 
-Underfull \vbox (badness 1454) has occurred while \output is active []
-
-
-
-LaTeX Warning: Reference `app:ballspotting' on page 3 undefined on input line 2
-21.
+LaTeX Warning: Reference `app:ballspotting' on page 5 undefined on input line 3
+11.
 
 
-LaTeX Warning: Reference `sub:ballactionspottingwinner' on page 3 undefined on 
-input line 221.
+LaTeX Warning: Reference `sub:ballactionspottingwinner' on page 5 undefined on 
+input line 311.
 
 
-LaTeX Warning: Citation `Hong2022Spotting' on page 3 undefined on input line 23
+LaTeX Warning: Citation `Hong2022Spotting' on page 5 undefined on input line 32
 8.
 
-<./images/fig1.png, id=15, 249.3315pt x 189.22694pt>
+<./images/fig1.png, id=23, 249.3315pt x 189.22694pt>
 File: ./images/fig1.png Graphic file (type png)
 <use ./images/fig1.png>
-Package pdftex.def Info: ./images/fig1.png  used on input line 273.
+Package pdftex.def Info: ./images/fig1.png  used on input line 366.
 (pdftex.def)             Requested size: 249.33087pt x 189.22647pt.
-(./paper.bbl [3 <./images/model.png>])
+(./paper.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -399,7 +406,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[4 <./images/fig1.png (PNG copy)>] (./paper.aux)
+[5 <./images/fig1.png (PNG copy)>] (./paper.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-09-09>
@@ -413,23 +420,24 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4368 strings out of 467050
- 68379 string characters out of 5406312
- 500873 words of memory out of 5000000
- 33702 multiletter control sequences out of 15000+600000
+ 4370 strings out of 467050
+ 68437 string characters out of 5406312
+ 503873 words of memory out of 5000000
+ 33704 multiletter control sequences out of 15000+600000
  671546 words of font info for 117 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,11n,65p,681b,305s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></u
-sr/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/t
-exlive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/20
-26/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-d
-ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (4 pages, 250016 bytes).
+sr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr
+/local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/tex
+live/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026
+/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dis
+t/fonts/type1/urw/times/utmri8a.pfb>
+Output written on paper.pdf (5 pages, 264897 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
+ 60 PDF objects out of 1000 (max. 8388607)
+ 35 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
