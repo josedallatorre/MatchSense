@@ -45,16 +45,80 @@ gianluca.foresti@uniud.it}
 \maketitle
 
 \begin{abstract}
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+    Write this last, once your experiments are complete.
+
+It should contain five elements:
+1. Context: Ball action spotting aims to identify and temporally localize ball-related events in broadcast soccer videos.
+2. Problem: Accurate localization is challenging because events are brief and densely distributed.
+3. Method: You investigate replacing the 3D CNN temporal encoder with a Transformer while retaining the 2D visual backbone.
+4. Experiments: Describe the dataset, evaluation metric, and comparison.
+5. Results and conclusion: Report your actual results and the main finding.
+Aim for approximately 150–200 words, depending on the conference requirements.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert.
+    Ball action spotting, soccer video analysis,
+temporal action localization, 3D convolutional neural networks,
+Transformers, video understanding.
 \end{IEEEkeywords}
 
 \section{Introduction}
-TODO: write Introduction \\
+Paragraph 1 — General problem
+Introduce video understanding and temporal action spotting.
+
+Explain that action spotting involves identifying both the semantic category and the temporal location of events in long, untrimmed videos.
+
+Then introduce soccer as an interesting application because broadcast videos contain many events, and understanding them requires temporal reasoning. \\
+The improvements in deep learning and increase computing power permitted considerable progress in the field of video understanding. In particular sport video understanding field has become more important area for computer vision researcher \cite{deliège2021soccernetv2datasetbenchmarksholistic} \cite{li2021multisportsmultipersonvideodataset} \cite{Giancola_2018} moving from easier task like object detection to more demanding challenges like temporal action spotting.\\
+Temporal action spotting is a computer vision task that identifies the exact timestamp when a specific action or event begins or occurs in an untrimmed video, without needing to outline its full start-and-end duration.\\
+
+
+\textbf{Paragraph 2 — Ball action spotting}
+To advance research in soccer video understanding the SoccerNet Challenge was proposed at CVPR 2023. The challenge focused on 7 tasks divided into three categories: Broadcast video understanding, 2. Field Understanding, and 3. Player understanding
+
+Narrow the problem to ball-related events.
+
+Explain:
+- What ball action spotting is.
+- The difference between general soccer action spotting and ball action spotting.
+- Why precise temporal localization matters.
+- Why ball actions can be difficult to distinguish.
+Mention the relevant SoccerNet challenge and dataset.
+Paragraph 3 — Existing approaches and research gap
+Introduce the main approaches.
+
+For example:
+- CNN-based approaches extract visual information from individual frames.
+- 3D convolutions can learn spatiotemporal features from neighboring frames.
+- Transformers use self-attention to model relationships between temporal representations.
+Explain that your work investigates whether self-attention provides a useful alternative to convolutional temporal modeling.
+
+Be careful: don't claim that existing CNN approaches are inadequate. Your experiments should establish whether the alternative is beneficial.
+Paragraph 4 — Your approach
+Describe your idea briefly:
+- Start from the architecture of the 2023 winning solution.
+- Retain the shared 2D visual feature extractor.
+- Replace the 3D CNN temporal encoder with a Transformer encoder.
+- Compare the resulting architecture with the convolutional baseline.
+Contributions
+End the Introduction with a short contribution list.\\
+The main contributions of this work are:
+
+\begin{itemize}
+    \item We investigate a Transformer-based temporal
+    encoder for ball action spotting, replacing the
+    3D convolutional component of an existing architecture.
+
+    \item We describe an architecture that combines
+    a shared 2D visual feature extractor with
+    self-attention-based temporal feature aggregation.
+
+    \item We experimentally compare convolutional and
+    Transformer-based temporal modeling in terms of
+    spotting performance and computational efficiency.
+\end{itemize}
+ENd \\
+
 % Motivation, problem, research question, contributions.
 In order to understand the salient actions of a broadcast soccer game, SoccerNet introduces the task of action spotting, which consists in finding all the actions occurring in the videos. Beyond soccer understanding, this task addresses the more general problem of retrieving moments with a specific semantic meaning in long untrimmed videos.
 Introduce temporal action spotting in broadcast soccer. Explain that the model must identify both the action category and its timestamp in an untrimmed video, and that ball events can be brief and closely spaced.
@@ -67,7 +131,66 @@ List only contributions you actually make. For example:
     \item An analysis of accuracy, temporal context, and computational cost.
 \end{itemize}
 \section{Related Work}
+This section explains what has already been done and establishes where your work fits.
 
+I recommend four subsections.
+3.1 Soccer Action Spotting
+Introduce the broader problem of soccer action spotting.
+
+Discuss:
+- SoccerNet and its datasets.
+- Temporal localization of soccer events.
+- The use of deep learning for action spotting.
+- Relevant approaches to temporal event detection.
+The objective is to give readers enough background to understand ball action spotting.
+
+You don't need to describe every SoccerNet paper. Focus on the approaches most relevant to your architecture.
+3.2 Ball Action Spotting
+This is where you discuss the two references we examined.
+
+Baikulov (2023)
+
+Explain:
+- The slow-fusion 2D/3D architecture.
+- EfficientNetV2-B0.
+- The 3D inverted residual blocks.
+- Multi-stage training.
+- Transfer learning and fine-tuning with longer sequences.
+Explain why this is particularly relevant: it provides the architectural reference for your baseline.
+
+Wang et al. (2023)
+
+Explain:
+- Boosted Model Ensembling.
+- Candidate model generation.
+- Model selection and ensemble weighting.
+- The importance of model diversity.
+You don't need to describe every implementation detail. The important point is that it represents another successful approach to the same challenge.
+3.3 Convolutional Temporal Modeling
+Explain the principles behind 3D CNNs.
+
+Discuss:
+- 2D convolution extracts spatial features.
+- 3D convolution operates over spatial and temporal dimensions.
+- Temporal convolutions aggregate information from neighboring frames.
+- Slow fusion allows spatial feature extraction before temporal processing.
+Then explain the advantages of this approach, such as local temporal processing and efficient hierarchical feature extraction.
+
+This subsection prepares the reader for your baseline architecture.
+3.4 Transformer-Based Temporal Modeling
+Introduce Transformers and self-attention.
+
+Explain:
+- Temporal tokens.
+- Query, key and value representations.
+- Self-attention.
+- Positional embeddings.
+- Temporal aggregation.
+Discuss relevant applications of Transformers in video understanding and temporal action localization.
+
+Finally, explain that your work investigates their use in ball action spotting, specifically as an alternative to the 3D CNN temporal encoder.
+
+Important: Your actual Transformer architecture and its hyperparameters should not be described here. Those belong in Proposed Method.
 \subsection{First solution with paper}
 Here we talk about the solution with the paper.\\ 
  Our method, Boosted Model Ensembling (BME), is based on the end-to-end baseline model, E2E-Spot, as presented in [10]? citation.\\
@@ -198,6 +321,122 @@ Finally, a linear classification layer maps this representation to the output ac
 \subsection{Convolutional Temporal Modeling}
 \subsection{Transformer-Based Video Modeling}
 \section{Proposed Method}
+This is probably the most important section of your paper.
+
+The reader should understand exactly what you implemented and how the two architectures differ.
+
+I recommend five subsections.
+4.1 Task Definition
+Mathematically define the problem.
+
+Explain:
+- Input: a sequence of video frames.
+- Output: probabilities for the ball action classes.
+- Labels: actions associated with timestamps.
+- Prediction: whether an action occurs at the center timestamp of the input sequence.
+You should explicitly explain your label construction.
+
+For example, if you use a 0.6-second positive labeling window, explain how frames within this interval are assigned positive labels.
+
+You can introduce notation such as:
+\[
+X = \{I_1,I_2,\ldots,I_T\}
+\]
+
+where \(I_t\) represents a video frame.
+
+The model predicts:
+\[
+\hat{y}=f(X;\theta)
+\]
+
+where \(\hat{y}\) contains the predicted action probabilities.
+4.2 Baseline Architecture
+Describe Baikulov's architecture as the reference architecture you reproduce or adapt.
+
+Include a diagram.
+
+
+
+
+
+
+
+mdpi.com
+
+
+Explain the processing pipeline:
+1. Sample frames from the video.
+2. Group neighboring grayscale frames into stacks of three.
+3. Apply the shared 2D EfficientNetV2-B0 encoder.
+4. Process the resulting feature maps using the 3D temporal encoder.
+5. Aggregate features using pooling.
+6. Predict action probabilities using a classification layer.
+Include tensor dimensions wherever possible.
+
+For example, assuming five stacks and a 192-channel projected representation, describe the actual dimensions produced by your implementation rather than relying on this example.
+4.3 Transformer-Based Temporal Encoder
+This is your main architectural contribution.
+
+Explain the architecture step by step.
+
+Based on your previous draft:
+1. Divide the 15-frame input into five groups of three frames.
+2. Process each group using the shared 2D encoder.
+3. Project the extracted features to 192 dimensions.
+4. Apply adaptive average pooling to obtain five temporal feature vectors.
+5. Add learned positional embeddings.
+6. Process the sequence with a Transformer encoder.
+7. Apply temporal average pooling.
+8. Use a linear classifier to predict the action classes.
+Include the actual Transformer configuration:
+Parameter	Value
+Embedding dimension	192
+Number of layers	2
+Attention heads	8
+Number of temporal tokens	5
+Positional encoding	Learned
+Temporal aggregation	Average pooling
+
+Also report the feed-forward dimension, dropout, normalization, and activation function from your implementation.
+
+Explain why you chose these values, if you have experimental justification.
+4.4 Architectural Differences
+I strongly recommend adding this subsection.
+
+A table will make your contribution much easier to understand.
+Component	CNN baseline	Transformer
+2D backbone	EfficientNetV2-B0	Same
+Input frames	15	15
+Frame grouping	3	3
+Temporal encoder	3D CNN	Transformer
+Spatial aggregation	As implemented in baseline	Adaptive average pooling
+Temporal aggregation	Baseline pooling	Average pooling
+Classifier	Linear	Linear
+
+Verify every entry against your actual code.
+
+In particular, explain that spatial pooling before attention changes the feature representation as well as the temporal modeling operation. This distinction is important for interpreting the comparison.
+4.5 Training and Inference
+Describe the training and prediction pipelines.
+
+Include:
+- Input resolution.
+- Frame sampling rate.
+- Number of input frames.
+- Label construction.
+- Loss function.
+- Optimizer.
+- Learning rate and scheduler.
+- Batch size.
+- Data augmentation.
+- Initialization and pretrained weights.
+- Number of epochs.
+- Prediction procedure.
+- Postprocessing.
+For inference, explain how frame-wise probabilities are converted into timestamp predictions.
+
+For example, describe Gaussian smoothing and peak detection if you retain those operations.
 \subsection{Task Definition}
 Define the input video sequence, the action classes, the timestamp-based labels, and the prediction target. Explain whether the model predicts the action at the center frame or predicts a temporal sequence of action probabilities. \\
 
@@ -208,6 +447,65 @@ Ball action spotting involves identifying both the timing and type of ball-relat
 
 \subsection{Soccer Action Spotting}
 ball action spotting, focusing on retrieving all timestamps related to the soccer ball change of state, \\
+
+
+\subsection{Ball Action Spotting}
+
+The SoccerNet Ball Action Spotting Challenge was introduced to
+address the problem of temporally localizing ball-related actions
+in broadcast soccer videos. Unlike general action spotting,
+ball-related events such as passes and drives are often densely
+distributed and require precise temporal localization.
+
+Among the solutions proposed for the 2023 challenge, Baikulov
+achieved first place with an efficient deep learning architecture
+combining two-dimensional and three-dimensional convolutional
+operations \cite{Baikulov2023}. The proposed architecture follows
+a slow-fusion strategy, in which a shared 2D convolutional
+encoder independently extracts visual features from groups of
+consecutive grayscale frames. These features are subsequently
+processed by a 3D convolutional encoder to capture temporal
+information. The resulting representations are aggregated
+through generalized mean pooling and used for multilabel
+action classification.
+
+In addition to the model architecture, the solution introduced
+a multi-stage training strategy involving pre-training on the
+SoccerNet Action Spotting dataset, transfer learning, and
+fine-tuning with longer video sequences. The use of
+out-of-fold predictions for sample selection and an efficient
+video loading pipeline further contributed to the final
+performance. The solution achieved 86.47\% mAP@1 on the
+challenge set \cite{Baikulov2023}.
+
+Another notable approach was proposed by Wang et al.,
+who obtained second place in the 2023 challenge with
+Boosted Model Ensembling (BME) \cite{Wang2023BME}.
+Their method is based on the E2E-Spot baseline and
+focuses on improving performance through the generation
+and combination of multiple candidate models. These models
+differ in their training sample configurations, feature
+extraction architectures, and optimization strategies.
+The candidate architectures include RegNet and EfficientNet
+backbones incorporating Gate-Shift Modules, while the
+training strategies consider AdamW and stochastic weight
+averaging.
+
+Rather than relying on a conventional fixed ensemble,
+BME iteratively selects candidate models and determines
+their contribution according to improvements in validation
+mAP@1. The resulting ensemble achieved 86.37\% mAP@1
+on the challenge test set \cite{Wang2023BME}.
+
+These approaches demonstrate the importance of both
+spatiotemporal feature extraction and training strategies
+for accurately spotting ball-related events. In particular,
+the slow-fusion architecture proposed by Baikulov provides
+the convolutional baseline considered in this work.
+We investigate an alternative approach to temporal feature
+modeling by replacing its 3D convolutional encoder with
+a Transformer encoder, while retaining the shared 2D
+visual feature extractor.
 
 \subsection{Baseline Architecture}
 \textbf{Research question is supposed to be about replacing the temporal 3D CNN with a Transformer}
@@ -242,6 +540,67 @@ A key methodological choice is whether you train the Transformer from scratch or
 \subsection{Prediction and Postprocessing}
 
 \section{Experimental Setup}
+5. Experimental Setup
+The purpose of this section is reproducibility.
+
+Another researcher should be able to understand how you performed the experiments.
+5.1 Dataset
+Describe the actual challenge dataset you used.
+
+Include:
+- Dataset source.
+- Number of matches.
+- Number of annotated events.
+- Number of action classes.
+- Video resolution and frame rate.
+- Training, validation and test splits.
+- Challenge evaluation set.
+Be especially careful about the challenge year: your previous draft mixed 2023 and 2024 dataset descriptions.
+
+Use the correct dataset statistics for your experiment.
+5.2 Implementation Details
+Describe your technical environment.
+
+For example:
+- PyTorch version.
+- GPU hardware.
+- CUDA version.
+- Input resolution.
+- Batch size.
+- Optimizer.
+- Training duration.
+- Mixed precision.
+- Random seeds.
+Also report the relevant model hyperparameters.
+5.3 Evaluation Metrics
+Explain mAP@1.
+
+Describe:
+- Average Precision.
+- Mean Average Precision across action classes.
+- The one-second temporal tolerance.
+- The official evaluation protocol.
+If you measure inference speed or memory, explain those metrics here too.
+5.4 Experimental Configurations
+Clearly identify your experiments.
+
+I suggest the following table:
+Experiment	Temporal encoder	Purpose
+E1	3D CNN	Baseline
+E2	Transformer	Proposed architecture
+E3	Transformer, alternative configuration	Ablation, if available
+
+Try to keep the experiments controlled.
+
+Ideally, the baseline and Transformer should use the same:
+- Dataset split.
+- Input frames.
+- 2D backbone.
+- Training data.
+- Label construction.
+- Evaluation procedure.
+- Postprocessing.
+If you cannot keep everything identical, document the differences.\\
 The goal here is to make the experiment reproducible and the comparison defensible.
 Subsection	What it should contain
 Dataset	Number of matches, classes, annotations, and data split
@@ -258,6 +617,69 @@ If you change several things at once — for example, the temporal encoder, the 
 \subsection{Experimental Configurations}
 
 \section{Results and Discussion}
+6. Results and Discussion
+This section should answer your research question, not just present numbers.
+
+I recommend five subsections.
+6.1 Main Comparison
+This is your most important results table.
+
+For example:
+Architecture	mAP@1	Parameters	Inference time
+3D CNN baseline	TBD	TBD	TBD
+Transformer	TBD	TBD	TBD
+
+Use actual measurements, and clarify whether inference time is measured per frame, sequence, or video.
+
+Discuss:
+- Which architecture performs better?
+- What is the absolute difference in mAP?
+- Are the differences consistent across classes or folds?
+- Does the Transformer introduce computational overhead?
+Don't interpret a small difference as significant without suitable repeated experiments.
+6.2 Effect of Temporal Context
+Investigate how the length of the input sequence affects performance.
+
+For example:
+- 15 frames.
+- 33 frames.
+- Other sequence lengths, if you tested them.
+Explain whether longer temporal context improves spotting performance.
+
+If you compare sequence lengths, make sure the sampling rate and temporal coverage are clearly specified.
+6.3 Ablation Study
+Investigate individual architectural choices.
+
+Possible experiments:
+- Transformer depth.
+- Number of attention heads.
+- Embedding dimension.
+- Positional embeddings.
+- Temporal pooling strategy.
+You don't need to test all of these. Select the experiments you have actually performed.
+6.4 Error Analysis
+This section is often overlooked but can make your paper considerably stronger.
+
+Analyze:
+- False positives.
+- Missed events.
+- Closely spaced actions.
+- Confusion between action classes.
+- Temporal localization errors.
+Include qualitative examples if possible.
+
+For instance, show a short video timeline with ground-truth timestamps and predicted timestamps.
+6.5 Limitations
+Be honest about the limitations.
+
+Potential points:
+- Limited size of the annotated dataset.
+- Small number of temporal tokens.
+- Spatial information lost through global pooling before attention.
+- Computational requirements.
+- Lack of extensive hyperparameter tuning.
+- Differences between the original winning solution and your reproduction.
+Only include limitations that genuinely apply.\\
 Your current proposed subsections are sensible, but each should answer a specific question.
 
 A. Main Comparison
@@ -337,6 +759,28 @@ We examine the model's predictions to identify common false positives, missed ac
 The current comparison does not isolate the effect of replacing 3D convolutions with self-attention. The proposed model also changes spatial and temporal feature aggregation. A controlled comparison using both architectures trained and evaluated under the same conditions would be needed to attribute performance differences more specifically to the temporal modeling approach
 
 \section{Conclusion and Future Work}
+7. Conclusion and Future Work
+Keep this section relatively short.
+
+Structure it in three paragraphs.
+
+Paragraph 1 — Objective and method
+
+Summarize the problem and your proposed architecture.
+
+Paragraph 2 — Main findings
+
+Report the actual experimental results and explain what they demonstrate about CNN-based and Transformer-based temporal modeling.
+
+Paragraph 3 — Future work
+
+Possible directions:
+- Spatial-temporal attention instead of spatially pooled temporal tokens.
+- More efficient Transformer architectures.
+- Longer temporal sequences.
+- Pretraining on larger soccer video datasets.
+- Combining convolutional and attention-based temporal representations.
+Avoid introducing new experimental claims in the conclusion.
 
 
 

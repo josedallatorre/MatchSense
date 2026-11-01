@@ -9,51 +9,54 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: bibliography/IEEEabrv.bib
 Database file #2: bibliography/IEEEexample.bib
+Warning--string name "june" is undefined
+--line 119 of file bibliography/IEEEexample.bib
+Warning--I didn't find a database entry for "Wang2023BME"
 Warning--I didn't find a database entry for "Hong2022Spotting"
 -- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 1 entry,
+You've used 5 entries,
             4024 wiz_defined-function locations,
-            1184 strings with 14784 characters,
-and the built_in function-call counts, 808 in all, are:
-= -- 38
-> -- 37
-< -- 0
-+ -- 18
-- -- 9
-* -- 55
-:= -- 122
-add.period$ -- 2
-call.type$ -- 1
-change.case$ -- 1
+            1209 strings with 15720 characters,
+and the built_in function-call counts, 3295 in all, are:
+= -- 234
+> -- 120
+< -- 1
++ -- 58
+- -- 29
+* -- 160
+:= -- 495
+add.period$ -- 11
+call.type$ -- 5
+change.case$ -- 6
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 56
-empty$ -- 72
-format.name$ -- 10
-if$ -- 166
+cite$ -- 5
+duplicate$ -- 256
+empty$ -- 287
+format.name$ -- 33
+if$ -- 739
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 16
-newline$ -- 26
-num.names$ -- 1
-pop$ -- 47
+int.to.str$ -- 5
+missing$ -- 63
+newline$ -- 44
+num.names$ -- 5
+pop$ -- 184
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 50
+skip$ -- 251
 stack$ -- 0
-substring$ -- 1
-swap$ -- 36
-text.length$ -- 0
+substring$ -- 33
+swap$ -- 174
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 1
+type$ -- 5
 warning$ -- 0
-while$ -- 1
-width$ -- 2
-write$ -- 30
-(There was 1 warning)
+while$ -- 6
+width$ -- 6
+write$ -- 71
+(There were 3 warnings)
