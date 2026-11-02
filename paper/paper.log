@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  31 OCT 2026 20:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  2 NOV 2026 11:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -285,45 +285,175 @@ Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
 \multirow@dima=\skip58
 \bigstrutjot=\dimen198
 )
-(/usr/local/texlive/2026/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2026-10-09 v7.01s Hypertext links for LaTeX
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+))
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2026-01-29 v2.58 Cross-referencing by name of section
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count312
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count313
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\@linkdim=\dimen199
+\Hy@linkcounter=\count314
+\Hy@pagecounter=\count315
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2026-10-09 v7.01s Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/local/texlive/2026/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count316
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2026-10-09 v7.01s Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4199.
+Package hyperref Info: Link nesting OFF on input line 4204.
+Package hyperref Info: Hyper index ON on input line 4207.
+Package hyperref Info: Plain pages OFF on input line 4214.
+Package hyperref Info: Backreferencing OFF on input line 4219.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4466.
+\c@Hy@tempcnt=\count317
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip18
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4805.
+\XeTeXLinkMargin=\dimen256
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count318
+\Field@Width=\dimen257
+\Fld@charsize=\dimen258
+Package hyperref Info: Hyper figures OFF on input line 6091.
+Package hyperref Info: Link nesting OFF on input line 6096.
+Package hyperref Info: Hyper index ON on input line 6099.
+Package hyperref Info: backreferencing OFF on input line 6106.
+Package hyperref Info: Link coloring OFF on input line 6111.
+Package hyperref Info: Link coloring with OCG OFF on input line 6116.
+Package hyperref Info: PDF/A mode OFF on input line 6121.
+\Hy@abspage=\count319
+\c@Item=\count320
+\c@Hfootnote=\count321
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2026-10-09 v7.01s Hyperref driver for pdfTeX
+\Fld@listcount=\count322
+\c@bookmark@seq@number=\count323
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
+
+(/usr/local/texlive/2026/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+84.
+)
+\Hy@SectionHShift=\skip59
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 23.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 23.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 23.
+ (/usr/local/texlive/2026/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-09-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count312
-)
-(./paper.aux
-
-LaTeX Warning: Label `fig' multiply defined.
-
-)
+\l__color_backend_stack_int=\count324
+) (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
+LaTeX Font Info:    ... okay on input line 27.
 
 -- Lines per column: 56 (exact).
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count313
-\scratchdimen=\dimen199
+\scratchcounter=\count325
+\scratchdimen=\dimen259
 \scratchbox=\box57
-\nofMPsegments=\count314
-\nofMParguments=\count315
+\nofMPsegments=\count326
+\nofMParguments=\count327
 \everyMPshowfont=\toks24
-\MPscratchCnt=\count316
-\MPscratchDim=\dimen256
-\MPnumerator=\count317
-\makeMPintoPDFobject=\count318
+\MPscratchCnt=\count328
+\MPscratchDim=\dimen260
+\MPnumerator=\count329
+\makeMPintoPDFobject=\count330
 \everyMPtoPDFconversion=\toks25
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -334,31 +464,50 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 45.
+Package hyperref Info: Link coloring ON on input line 27.
 
+(./paper.out) (./paper.out)
+\@outlinefile=\write3
+\openout3 = `paper.out'.
+
+
+Underfull \hbox (badness 6268) in paragraph at lines 78--81
+\OT1/ptm/m/n/10 un-der-stand-ing. In par-tic-u-lar sport video un-der-stand-ing
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 78--81
+
+ []
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 87.
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 45.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 87.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-** WARNING: \thanks is locked out when in conference mode (line 45).
-
-Underfull \hbox (badness 10000) in paragraph at lines 117--120
-[]\OT1/ptm/m/n/10 We ex-per-i-men-tally com-pare con-vo-lu-tional and
+Underfull \hbox (badness 1546) in paragraph at lines 90--91
+\OT1/ptm/m/n/10 The dataset con-sist of 7 games with 11,041 an-no-tated
  []
 
 
-Underfull \hbox (badness 4765) in paragraph at lines 117--120
-\OT1/ptm/m/n/10 Transformer-based tem-po-ral mod-el-ing in terms of
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 121--122
+Underfull \hbox (badness 2027) in paragraph at lines 95--101
+\OT1/ptm/m/n/10 be-tween gen-eral soc-cer ac-tion spot-ting and ball ac-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--101
 
  []
 
@@ -367,62 +516,77 @@ ocal/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 154--161
+Underfull \hbox (badness 10000) in paragraph at lines 170--186
 []\OT1/ptm/m/n/10 Explain: - The slow-fusion 2D/3D ar-chi-tec-ture. -
  []
 
+
+Underfull \hbox (badness 5711) in paragraph at lines 170--186
+\OT1/ptm/m/n/10 The model con-sumes se-quences of grayscale frames.
+ []
+
+
+Underfull \hbox (badness 2027) in paragraph at lines 170--186
+\OT1/ptm/m/n/10 Neigh-bor-ing frames are stack-ing as chan-nels for in-put
+ []
+
+
+Underfull \hbox (badness 2126) in paragraph at lines 170--186
+\OT1/ptm/m/n/10 shared 2D en-coder in-de-pen-dently pro-cesses these in-put
+ []
+
+
+Underfull \hbox (badness 5133) in paragraph at lines 170--186
+\OT1/ptm/m/n/10 pro-cesses vi-sual fea-tures, pro-duc-ing tem-po-ral fea-tures.
+
+ []
+
 [2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 308--309
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 442--443
+Underfull \hbox (badness 10000) in paragraph at lines 358--360
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 444--445
+Underfull \hbox (badness 10000) in paragraph at lines 361--362
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 450--451
+Underfull \hbox (badness 10000) in paragraph at lines 367--368
 
  []
 
 
-LaTeX Warning: Citation `Wang2023BME' on page 5 undefined on input line 484.
+LaTeX Warning: Citation `Wang2023BME' on page 5 undefined on input line 401.
 
 
-LaTeX Warning: Citation `Wang2023BME' on page 5 undefined on input line 499.
+LaTeX Warning: Citation `Wang2023BME' on page 5 undefined on input line 416.
 
 [5]
-<./images/model.png, id=28, 560.8453pt x 406.51875pt>
+<./images/model.png, id=236, 560.8453pt x 406.51875pt>
 File: ./images/model.png Graphic file (type png)
 <use ./images/model.png>
-Package pdftex.def Info: ./images/model.png  used on input line 523.
+Package pdftex.def Info: ./images/model.png  used on input line 518.
 (pdftex.def)             Requested size: 258.0pt x 187.00089pt.
- [6 <./images/model.png>]
+ [6 <./images/model.png>] [7]
 
-LaTeX Warning: Reference `app:ballspotting' on page 7 undefined on input line 7
-34.
-
-
-LaTeX Warning: Reference `sub:ballactionspottingwinner' on page 7 undefined on 
-input line 734.
+LaTeX Warning: Reference `app:ballspotting' on page 8 undefined on input line 7
+28.
 
 
-LaTeX Warning: Citation `Hong2022Spotting' on page 7 undefined on input line 75
-1.
+LaTeX Warning: Reference `sub:ballactionspottingwinner' on page 8 undefined on 
+input line 728.
 
-[7]
-<./images/fig1.png, id=38, 249.3315pt x 189.22694pt>
-File: ./images/fig1.png Graphic file (type png)
-<use ./images/fig1.png>
-Package pdftex.def Info: ./images/fig1.png  used on input line 811.
-(pdftex.def)             Requested size: 249.33087pt x 189.22647pt.
- (./paper.bbl)
+
+LaTeX Warning: Citation `Hong2022Spotting' on page 8 undefined on input line 74
+5.
+
+(./paper.bbl [8])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -434,7 +598,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[8 <./images/fig1.png (PNG copy)>] (./paper.aux)
+[9
+
+] (./paper.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-09-09>
@@ -443,18 +609,17 @@ L3 programming layer <2026-09-09>
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
+Package rerunfilecheck Info: File `paper.out' has not changed.
+(rerunfilecheck)             Checksum: 305209B27DA36A90A9E30AC4290AD878;8966.
  ) 
 Here is how much of TeX's memory you used:
- 4377 strings out of 467050
- 68633 string characters out of 5406312
- 505885 words of memory out of 5000000
- 33711 multiletter control sequences out of 15000+600000
- 671546 words of font info for 117 fonts, out of 8000000 for 9000
+ 11558 strings out of 467050
+ 180091 string characters out of 5406312
+ 629100 words of memory out of 5000000
+ 40729 multiletter control sequences out of 15000+600000
+ 667729 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,65p,681b,305s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,11n,79p,671b,597s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 ></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><
 /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></u
@@ -467,10 +632,10 @@ xlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2026
 /texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (8 pages, 323890 bytes).
+Output written on paper.pdf (9 pages, 317351 bytes).
 PDF statistics:
- 96 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 339 PDF objects out of 1000 (max. 8388607)
+ 299 compressed objects within 3 object streams
+ 67 named destinations out of 1000 (max. 500000)
+ 382 words of extra memory for PDF output out of 10000 (max. 10000000)
 

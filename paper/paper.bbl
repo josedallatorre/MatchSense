@@ -47,6 +47,27 @@ S.~Giancola, M.~Amine, T.~Dghaily, and B.~Ghanem, ``Soccernet: A scalable
   \url{http://dx.doi.org/10.1109/CVPRW.2018.00223}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Cioppa_2024}
+\BIBentryALTinterwordspacing
+A.~Cioppa, S.~Giancola, V.~Somers, F.~Magera, X.~Zhou, H.~Mkhallati,
+  A.~Deliège, J.~Held, C.~Hinojosa, A.~M. Mansourian, P.~Miralles, O.~Barnich,
+  C.~De~Vleeschouwer, A.~Alahi, B.~Ghanem, M.~Van~Droogenbroeck, A.~Kamal,
+  A.~Maglo, A.~Clapés, A.~Abdelaziz, A.~Xarles, A.~Orcesi, A.~Scott, B.~Liu,
+  B.~Lim, C.~Chen, F.~Deuser, F.~Yan, F.~Yu, G.~Shitrit, G.~Wang, G.~Choi,
+  H.~Kim, H.~Guo, H.~Fahrudin, H.~Koguchi, H.~Ardö, I.~Salah, I.~Yerushalmy,
+  I.~Muhammad, I.~Uchida, I.~Be’ery, J.~Rabarisoa, J.~Lee, J.~Fu, J.~Yin,
+  J.~Xu, J.~Nang, J.~Denize, J.~Li, J.~Zhang, J.~Kim, K.~Synowiec,
+  K.~Kobayashi, K.~Zhang, K.~Habel, K.~Nakajima, L.~Jiao, L.~Ma, L.~Wang,
+  L.~Wang, M.~Li, M.~Zhou, M.~Nasr, M.~Abdelwahed, M.~Liashuha, N.~Falaleev,
+  N.~Oswald, Q.~Jia, Q.-C. Pham, R.~Song, R.~Hérault, R.~Peng, R.~Chen,
+  R.~Liu, R.~Baikulov, R.~Fukushima, S.~Escalera, S.~Lee, S.~Chen, S.~Ding,
+  T.~Someya, T.~B. Moeslund, T.~Li, W.~Shen, W.~Zhang, W.~Li, W.~Dai, W.~Luo,
+  W.~Zhao, W.~Zhang, X.~Yang, Y.~Ma, Y.~Joo, Y.~Zeng, Y.~Gan, Y.~Zhu, Y.~Zhong,
+  Z.~Ruan, Z.~Li, Z.~Huang, and Z.~Meng, ``Soccernet 2023 challenges results,''
+  \emph{Sports Engineering}, vol.~27, no.~2, 2024. [Online]. Available:
+  \url{http://dx.doi.org/10.1007/s12283-024-00466-4}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Baikulov2023}
 R.~Baikulov, ``Solution for soccernet ball action spotting challenge 2023,''
   \url{https://github.com/lRomul/ball-action-spotting}, 2023, first-place

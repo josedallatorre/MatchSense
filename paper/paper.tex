@@ -11,6 +11,16 @@
 \usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{multirow}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,%
+  linkcolor={red!50!black},
+  citecolor={blue!65!black},
+  urlcolor={blue!80!black},
+  bookmarksnumbered=true,%
+  bookmarksopen=true
+  }
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -18,9 +28,6 @@
 
 
 \title{Conference Paper Title*\\
-{\footnotesize \textsuperscript{*}Note: Sub-titles are not captured for https://ieeexplore.ieee.org  and
-should not be used}
-\thanks{Identify applicable funding agency here. If none, delete this.}
 }
 
 \author{\IEEEauthorblockN{Jos\`e Dalla Torre}
@@ -72,9 +79,16 @@ Then introduce soccer as an interesting application because broadcast videos con
 The improvements in deep learning and increase computing power permitted considerable progress in the field of video understanding. In particular sport video understanding field has become more important area for computer vision researcher \cite{deliège2021soccernetv2datasetbenchmarksholistic} \cite{li2021multisportsmultipersonvideodataset} \cite{Giancola_2018} moving from easier task like object detection to more demanding challenges like temporal action spotting.\\
 Temporal action spotting is a computer vision task that identifies the exact timestamp when a specific action or event begins or occurs in an untrimmed video, without needing to outline its full start-and-end duration.\\
 
+\textbf{Paragraph 2 — Ball action spotting} \\
+To advance research in soccer video understanding the SoccerNet Challenge was proposed at CVPR 2023. The challenge focused on 7 tasks divided into three categories: Broadcast video understanding, Field Understanding, and Player understanding. We will focus on the first edition of Ball action spotting challenge included in the first category.\\
+A. Cioppa et al. \cite{Cioppa_2024}  define ball action spotting challenge as localizing the exact time when two types of actions related to the soccer ball occur: pass and drive. This task pose a unique challenge due to the dynamic and complex nature of the game. During a match players move rapidly, often obscuring each other, making it difficult to accurately track their movements.\\
+In this challenge a precise timestamp is set for this actions:
+\begin{itemize}
+    \item \textbf{pass event}: the timestamp correspond to the moment when the ball leaves a player's foot
+    \item \textbf{drive event}: the timestamp corrrespond to the moment when a player control the ball
+\end{itemize}
+The dataset consist of 7 games with 11,041 annotated timestamps with 2 games not publicy available for the challenge set. The recordings of the games are untrimmed and provided by Footovision. Other details of the challenge can be found at \href{https://www.soccer-net.org/tasks/ball-action-spotting}{SoccerNet Ball Action Spotting challenge}.\\
 
-\textbf{Paragraph 2 — Ball action spotting}
-To advance research in soccer video understanding the SoccerNet Challenge was proposed at CVPR 2023. The challenge focused on 7 tasks divided into three categories: Broadcast video understanding, 2. Field Understanding, and 3. Player understanding
 
 Narrow the problem to ball-related events.
 
@@ -83,7 +97,10 @@ Explain:
 - The difference between general soccer action spotting and ball action spotting.
 - Why precise temporal localization matters.
 - Why ball actions can be difficult to distinguish.
-Mention the relevant SoccerNet challenge and dataset.
+Mention the relevant SoccerNet challenge and dataset. \\
+
+
+
 Paragraph 3 — Existing approaches and research gap
 Introduce the main approaches.
 
@@ -113,14 +130,14 @@ The main contributions of this work are:
     a shared 2D visual feature extractor with
     self-attention-based temporal feature aggregation.
 
-    \item We experimentally compare convolutional and
+    \item TODO: check this part
+    We experimentally compare convolutional and 
     Transformer-based temporal modeling in terms of
     spotting performance and computational efficiency.
 \end{itemize}
-ENd \\
 
 % Motivation, problem, research question, contributions.
-In order to understand the salient actions of a broadcast soccer game, SoccerNet introduces the task of action spotting, which consists in finding all the actions occurring in the videos. Beyond soccer understanding, this task addresses the more general problem of retrieving moments with a specific semantic meaning in long untrimmed videos.
+In order to understand the salient actions of a broadcast soccer game, SoccerNet introduces the task of action spotting, which consists in finding all the actions occurring in the videos. Beyond soccer understanding, this task addresses the more general problem of retrieving moments with a specific semantic meaning in long untrimmed videos. \\
 Introduce temporal action spotting in broadcast soccer. Explain that the model must identify both the action category and its timestamp in an untrimmed video, and that ball events can be brief and closely spaced.
 Introduce temporal 3D convolutions as a way to learn features across neighboring frames. Explain their local temporal processing and why you want to investigate self-attention as an alternative. Avoid claiming that convolution is inherently inadequate; your experiments should determine whether the alternative helps.
 Explain that your work investigates whether changing the temporal feature encoder, while preserving the rest of the pipeline, changes accuracy and efficiency on this particular task. The gap should be supported by related literature, not merely by the fact that you implemented a Transformer.
@@ -145,7 +162,7 @@ Discuss:
 The objective is to give readers enough background to understand ball action spotting.
 
 You don't need to describe every SoccerNet paper. Focus on the approaches most relevant to your architecture.
-3.2 Ball Action Spotting
+\subsection{Ball Action Spotting}
 This is where you discuss the two references we examined.
 
 Baikulov (2023)
@@ -157,9 +174,109 @@ Explain:
 - Multi-stage training.
 - Transfer learning and fine-tuning with longer sequences.
 Explain why this is particularly relevant: it provides the architectural reference for your baseline.
+Solution Key points: \\
+Efficient model architecture for extracting information from video data
+Multi-stage training (transfer learning, fine-tuning with long sequences)
+Fast video loading for training (GPU based, no need for preprocessing with extracting images)
+Model
+The model architecture employed in this solution utilizes a slow fusion approach, incorporating 2D convolutions in the early stages and 3D convolutions in the later stages. This architectural choice made one of the most significant contributions to the overall metric outcome. It effectively improved the mAP@1 metric on both the test and challenge sets, resulting in an approximate increase of 15\% (from 65\% to 80\%) compared to an approach utilizing 2D CNN early fusion. \\
+\textbf{model}\\
+The model consumes sequences of grayscale frames. Neighboring frames are stacking as channels for input to the 2D convolutional encoder. For example, if fifteen frames are stacked in sets of three, the outcome would be five input tensors, each consisting of three channels. The shared 2D encoder independently processes these input tensors, producing visual features. The following 3D encoder processes visual features, producing temporal features. Concated temporal features pass through global pooling to compress the spatial dimensions. Then, a linear classifier predicts the presence of actions in the middle frame of the original input sequence. \\
+I choose the following model hyperparameters as a result of the experiments:
 
-Wang et al. (2023)
+Stack threes from 15 grayscale 1280x736 frames skipping every second frame from the original 25 FPS video (equivalent to 15 neighboring frames at 12.5 FPS, about 1.16 seconds window)
+EfficientNetV2 B0 as 2D encoder
+4 inverted residual 3D blocks as 3D encoder (ported from 2D EfficientNet version)
+GeM as global pooling
+Multilabel classification with positive labels applied in a 0.6 seconds window (15 frames at 25 FPS) around the action timestamp from annotation
+You can find more details in the model implementation and experiment configs.
 
+\textbf{Training}\\
+I made several stages of training to obtain 86.47\% mAP@1 on the challenge set (87.03\% on the test):
+
+Basic training (config). The 2D encoder is initialized with ImageNet-pre-trained weights; other parts start from scratch.
+Training on Action Spotting Challenge dataset (config). Same weights initialization as in the first stage.
+Transfer learning (config). 2D and 3D encoders initialized with weights obtained in the second stage. Out-of-fold predictions from the first stage were used for data sampling (more details later).
+Fine-tuning with long sequences (config). 2D and 3D encoders initialized with weights obtained in the third stage. 2D encoder weights are frozen.
+Basic training
+In this challenge, I employed 7-fold cross-validation to tune the training pipeline more precisely. Each labeled game from the dataset is an individual fold.\\
+In short, the resulting training pipeline hyperparameters are:
+\begin{itemize}
+    \item Learning rate warmup for the first 6 epochs from 0 to 3e-4, cosine annealing last 30 epochs to 3e-6
+    \item Batch size 4, one training epoch comprises 6000 samples
+    \item Optimizer AdamW with weight decay 0.01
+    \item Focal loss with gamma 1.2
+    \item Model EMA with decay 0.999
+    \item Initial weights for 2D encoder ImageNet pretrained
+    \item Architecture hyperparameters listed above in the model part
+\end{itemize}
+Worth writing about sampling techniques during training, which significantly impacts its results. For basic training, a simple but well-working sampling algorithm was used. For each training sample, randomly take a video index from a uniform distribution. Then randomly choose a frame index with an equal chance to sample frames near to actions and remaining frames. Frame near to action if allocated in a 0.36 seconds window (9 frames at 25 FPS) around the action. I tried different ratios, but an equal chance to show empty and event frame worked best. I will introduce a more advanced sampling scheme in the section on transfer learning.
+
+I applied the usual augmentations like horizontal flip, rotation, random resized crop, brightness, motion blur, etc. Of the interesting, there are only two temporal augmentations:
+
+Simulating camera movement (change translation, scale, and angle over time)
+Randomly shake the frames in sequences (applied 40\% chance to change the frame index on +- 1)
+The models from this training have 79.06\% on CV (cross-validation) and 84.26\% mAP@1 on the test set (the metric on test split was calculated by the out-of-fold predictions for two folds which include test games). I did not evaluate these models for the challenge set.
+\textbf{Training on Action Spotting Challenge dataset}
+I built a similar pipeline for videos and classes from Action Spotting Challenge to get good initial weights for the next experiment.
+Briefly, here are the changes from the previous:
+\begin{itemize}
+    \item 377 games in training, 18 in validation split
+    \item 15 classes (all cards-related class was merged because the model consumes grayscale frames)
+    \item 4 warmup epochs and 20 training epochs, one epoch is 36000 samples
+    \item Weight the frame sampling by the effective number of class samples
+    \item Transfer learning
+\end{itemize}
+This training uses the results of the previous two. The second one gives excellent initial weights for 2D and 3D encoders. It provides a significant boost (~2\% mAP@1 on test and CV). That is understandable because the same models were trained on many games with similar input frames and some similar actions.
+
+Basic training gives out-of-fold predictions that I use for sampling in the following way:
+\textbf{sampling} 
+
+Take the element-wise maximum between the sampling distribution (introduced above) and predictions, then normalize again to equal probability sums between empty and action frames. The intuition is that there are some hard negative examples in the dataset. Due to many negative samples, such hard examples are rarely sampled during training. We can make something like hard negative mining/sampling with the technique.
+
+Other minor changes compared to basic training:
+
+7 warmup epochs and 35 training epochs
+Focal loss with gamma 1.2 and alpha 0.4
+Models achieve 81.04\% on CV, 86.51\% on the test, and 86.35\% mAP@1 on the challenge set.
+
+\textbf{Fine-tuning with long sequences}
+Before, I trained all models on relatively short clips (15 frames in 12.5 FPS, 1.16 seconds) to fits the VRAM of a single GPU and to decrease training time. Models obtained good 2D and 3D encoder weights in the previous experiment. So I tried to freeze 2D weights and fine-tune 3D weights on long sequences to provide more context.
+
+Changes compared to transfer learning experiment:
+
+33 frames in 12.5 FPS (2.6 seconds)
+LR warmup first 2 epochs from 0 to 1e-3, cosine annealing last 7 epochs to 5e-05
+SGD with Nesterov momentum 0.9
+Models scored 80.49\% on CV, 87.04\% on the test, and 86.47\% mAP@1 on the challenge set. The score is lower on cross-validation, but it's my best submission on the test and the challenge set.
+
+\textbf{Prediction and postprocessing}
+Models predict each possible sequence of frames from the videos. Additionally, I make test time augmentation with the horizontal flip. On the challenge set, I used the arithmetic mean of predictions from all fold models.
+
+Postprocessing is very simple. I just used a combination of Gaussian filter and peak detection from SciPy with the following parameters: standard deviation for Gaussian kernel 3.0, peak detection minimal height 0.2, and minimal distance between neighboring peaks 15 frames.
+
+\textbf{Training and prediction accelerations}
+I optimized the training pipeline to iterate experiments faster and to test more hypotheses.
+\begin{itemize}
+    \item Custom multiprocessing video loader with simultaneous use VideoProcessingFramework (GPU decoding) and OpenCV (CPU decoding) workers to optimize hardware utilization
+    \item FP16 with Automatic Mixed Precision
+    \item torch.compile using TorchDynamo backend
+    \item Augmentation on the GPU with kornia
+\end{itemize}
+These accelerations allow running epoch (train + val) of basic training in 7 minutes and 10 seconds on a single RTX 3090 Ti. It is impressive because one epoch is 6000 training and approximately 2600 validation examples, each of which is 15 frames in 1280x736 resolution. Also, using source videos without the preprocessing with extracting images allows using any video frame during training and saves disk space. \\
+I applied caching strategy to speed up inference time using the architecture structure. If one saves the last visual features, it is enough to predict with the 2D encoder only one stack of frames when receiving a new one. The 2D encoder is the most time expensive part of the model. Predicting 3D features takes a short time. So this strategy dramatically boosts prediction speed by several times.\\
+My solution is very inspired by the top solutions of the DFL - Bundesliga Data Shootout competition:
+Team Hydrogen (link)
+K\_mat (link)
+Camaro (link)
+ohkawa3 (link)
+
+\subsection{Wang et al. (2023)}
+\textbf{Authors summary}\\
+Here we talk about the solution with the paper.\\ 
+ Our method, Boosted Model Ensembling (BME), is based on the end-to-end baseline model, E2E-Spot, as presented in [10]? citation.\\
+ We generate several variants of the E2E-Spot model to create a candidate model set and propose a strategy for selecting appropriate model members from this set while assigning appropriate weights to each selected model. More details can be found in [35]? citation.\\
+  The resulting ensemble model takes into account uncertainties in event length, optimal network architectures, and optimizers, making it more robust than the baseline model. Our approach has the potential to handle various video event analysis tasks.
 Explain:
 - Boosted Model Ensembling.
 - Candidate model generation.
@@ -177,7 +294,7 @@ Discuss:
 Then explain the advantages of this approach, such as local temporal processing and efficient hierarchical feature extraction.
 
 This subsection prepares the reader for your baseline architecture.
-3.4 Transformer-Based Temporal Modeling
+\subsection{Transformer-Based Temporal Modeling}
 Introduce Transformers and self-attention.
 
 Explain:
@@ -191,118 +308,6 @@ Discuss relevant applications of Transformers in video understanding and tempora
 Finally, explain that your work investigates their use in ball action spotting, specifically as an alternative to the 3D CNN temporal encoder.
 
 Important: Your actual Transformer architecture and its hyperparameters should not be described here. Those belong in Proposed Method.
-\subsection{First solution with paper}
-Here we talk about the solution with the paper.\\ 
- Our method, Boosted Model Ensembling (BME), is based on the end-to-end baseline model, E2E-Spot, as presented in [10]? citation.\\
- We generate several variants of the E2E-Spot model to create a candidate model set and propose a strategy for selecting appropriate model members from this set while assigning appropriate weights to each selected model. More details can be found in [35]? citation.\\
-  The resulting ensemble model takes into account uncertainties in event length, optimal network architectures, and optimizers, making it more robust than the baseline model. Our approach has the potential to handle various video event analysis tasks.
-\subsection{Second solution I based my solution on}
-Solution Key points: \\
-Efficient model architecture for extracting information from video data
-Multi-stage training (transfer learning, fine-tuning with long sequences)
-Fast video loading for training (GPU based, no need for preprocessing with extracting images)
-Model
-The model architecture employed in this solution utilizes a slow fusion approach, incorporating 2D convolutions in the early stages and 3D convolutions in the later stages. This architectural choice made one of the most significant contributions to the overall metric outcome. It effectively improved the mAP@1 metric on both the test and challenge sets, resulting in an approximate increase of 15\% (from 65\% to 80\%) compared to an approach utilizing 2D CNN early fusion.
-
-model
-
-The model consumes sequences of grayscale frames. Neighboring frames are stacking as channels for input to the 2D convolutional encoder. For example, if fifteen frames are stacked in sets of three, the outcome would be five input tensors, each consisting of three channels. The shared 2D encoder independently processes these input tensors, producing visual features. The following 3D encoder processes visual features, producing temporal features. Concated temporal features pass through global pooling to compress the spatial dimensions. Then, a linear classifier predicts the presence of actions in the middle frame of the original input sequence.
-
-I choose the following model hyperparameters as a result of the experiments:
-
-Stack threes from 15 grayscale 1280x736 frames skipping every second frame from the original 25 FPS video (equivalent to 15 neighboring frames at 12.5 FPS, about 1.16 seconds window)
-EfficientNetV2 B0 as 2D encoder
-4 inverted residual 3D blocks as 3D encoder (ported from 2D EfficientNet version)
-GeM as global pooling
-Multilabel classification with positive labels applied in a 0.6 seconds window (15 frames at 25 FPS) around the action timestamp from annotation
-You can find more details in the model implementation and experiment configs.
-
-Training
-I made several stages of training to obtain 86.47\% mAP@1 on the challenge set (87.03\% on the test):
-
-Basic training (config). The 2D encoder is initialized with ImageNet-pre-trained weights; other parts start from scratch.
-Training on Action Spotting Challenge dataset (config). Same weights initialization as in the first stage.
-Transfer learning (config). 2D and 3D encoders initialized with weights obtained in the second stage. Out-of-fold predictions from the first stage were used for data sampling (more details later).
-Fine-tuning with long sequences (config). 2D and 3D encoders initialized with weights obtained in the third stage. 2D encoder weights are frozen.
-Basic training
-In this challenge, I employed 7-fold cross-validation to tune the training pipeline more precisely. Each labeled game from the dataset is an individual fold.
-
-In short, the resulting training pipeline hyperparameters are:
-
-Learning rate warmup for the first 6 epochs from 0 to 3e-4, cosine annealing last 30 epochs to 3e-6
-Batch size 4, one training epoch comprises 6000 samples
-Optimizer AdamW with weight decay 0.01
-Focal loss with gamma 1.2
-Model EMA with decay 0.999
-Initial weights for 2D encoder ImageNet pretrained
-Architecture hyperparameters listed above in the model part
-Worth writing about sampling techniques during training, which significantly impacts its results. For basic training, a simple but well-working sampling algorithm was used. For each training sample, randomly take a video index from a uniform distribution. Then randomly choose a frame index with an equal chance to sample frames near to actions and remaining frames. Frame near to action if allocated in a 0.36 seconds window (9 frames at 25 FPS) around the action. I tried different ratios, but an equal chance to show empty and event frame worked best. I will introduce a more advanced sampling scheme in the section on transfer learning.
-
-I applied the usual augmentations like horizontal flip, rotation, random resized crop, brightness, motion blur, etc. Of the interesting, there are only two temporal augmentations:
-
-Simulating camera movement (change translation, scale, and angle over time)
-Randomly shake the frames in sequences (applied 40\% chance to change the frame index on +- 1)
-The models from this training have 79.06\% on CV (cross-validation) and 84.26\% mAP@1 on the test set (the metric on test split was calculated by the out-of-fold predictions for two folds which include test games). I did not evaluate these models for the challenge set.
-
-Training on Action Spotting Challenge dataset
-I built a similar pipeline for videos and classes from Action Spotting Challenge to get good initial weights for the next experiment.
-
-Briefly, here are the changes from the previous:
-
-377 games in training, 18 in validation split
-15 classes (all cards-related class was merged because the model consumes grayscale frames)
-4 warmup epochs and 20 training epochs, one epoch is 36000 samples
-Weight the frame sampling by the effective number of class samples
-Transfer learning
-This training uses the results of the previous two. The second one gives excellent initial weights for 2D and 3D encoders. It provides a significant boost (~2\% mAP@1 on test and CV). That is understandable because the same models were trained on many games with similar input frames and some similar actions.
-
-Basic training gives out-of-fold predictions that I use for sampling in the following way:
-
-sampling
-
-Take the element-wise maximum between the sampling distribution (introduced above) and predictions, then normalize again to equal probability sums between empty and action frames. The intuition is that there are some hard negative examples in the dataset. Due to many negative samples, such hard examples are rarely sampled during training. We can make something like hard negative mining/sampling with the technique.
-
-Other minor changes compared to basic training:
-
-7 warmup epochs and 35 training epochs
-Focal loss with gamma 1.2 and alpha 0.4
-Models achieve 81.04\% on CV, 86.51\% on the test, and 86.35\% mAP@1 on the challenge set.
-
-Fine-tuning with long sequences
-Before, I trained all models on relatively short clips (15 frames in 12.5 FPS, 1.16 seconds) to fits the VRAM of a single GPU and to decrease training time. Models obtained good 2D and 3D encoder weights in the previous experiment. So I tried to freeze 2D weights and fine-tune 3D weights on long sequences to provide more context.
-
-Changes compared to transfer learning experiment:
-
-33 frames in 12.5 FPS (2.6 seconds)
-LR warmup first 2 epochs from 0 to 1e-3, cosine annealing last 7 epochs to 5e-05
-SGD with Nesterov momentum 0.9
-Models scored 80.49\% on CV, 87.04\% on the test, and 86.47\% mAP@1 on the challenge set. The score is lower on cross-validation, but it's my best submission on the test and the challenge set.
-
-Prediction and postprocessing
-Models predict each possible sequence of frames from the videos. Additionally, I make test time augmentation with the horizontal flip. On the challenge set, I used the arithmetic mean of predictions from all fold models.
-
-Postprocessing is very simple. I just used a combination of Gaussian filter and peak detection from SciPy with the following parameters: standard deviation for Gaussian kernel 3.0, peak detection minimal height 0.2, and minimal distance between neighboring peaks 15 frames.
-
-Training and prediction accelerations
-I optimized the training pipeline to iterate experiments faster and to test more hypotheses.
-
-Custom multiprocessing video loader with simultaneous use VideoProcessingFramework (GPU decoding) and OpenCV (CPU decoding) workers to optimize hardware utilization
-FP16 with Automatic Mixed Precision
-torch.compile using TorchDynamo backend
-Augmentation on the GPU with kornia
-These accelerations allow running epoch (train + val) of basic training in 7 minutes and 10 seconds on a single RTX 3090 Ti. It is impressive because one epoch is 6000 training and approximately 2600 validation examples, each of which is 15 frames in 1280x736 resolution. Also, using source videos without the preprocessing with extracting images allows using any video frame during training and saves disk space.
-
-I applied caching strategy to speed up inference time using the architecture structure. If one saves the last visual features, it is enough to predict with the 2D encoder only one stack of frames when receiving a new one. The 2D encoder is the most time expensive part of the model. Predicting 3D features takes a short time. So this strategy dramatically boosts prediction speed by several times.
-
-
-
-My solution is very inspired by the top solutions of the DFL - Bundesliga Data Shootout competition:
-
-Team Hydrogen (link)
-K\_mat (link)
-Camaro (link)
-ohkawa3 (link)
-
 
 askldjkljekle\\
 \subsection{Transformer-Based Video Modeling}
@@ -326,7 +331,7 @@ This is probably the most important section of your paper.
 The reader should understand exactly what you implemented and how the two architectures differ.
 
 I recommend five subsections.
-4.1 Task Definition
+\subsection{Task Definition}
 Mathematically define the problem.
 
 Explain:
@@ -351,93 +356,6 @@ The model predicts:
 \]
 
 where \(\hat{y}\) contains the predicted action probabilities.
-4.2 Baseline Architecture
-Describe Baikulov's architecture as the reference architecture you reproduce or adapt.
-
-Include a diagram.
-
-
-
-
-
-
-
-mdpi.com
-
-
-Explain the processing pipeline:
-1. Sample frames from the video.
-2. Group neighboring grayscale frames into stacks of three.
-3. Apply the shared 2D EfficientNetV2-B0 encoder.
-4. Process the resulting feature maps using the 3D temporal encoder.
-5. Aggregate features using pooling.
-6. Predict action probabilities using a classification layer.
-Include tensor dimensions wherever possible.
-
-For example, assuming five stacks and a 192-channel projected representation, describe the actual dimensions produced by your implementation rather than relying on this example.
-4.3 Transformer-Based Temporal Encoder
-This is your main architectural contribution.
-
-Explain the architecture step by step.
-
-Based on your previous draft:
-1. Divide the 15-frame input into five groups of three frames.
-2. Process each group using the shared 2D encoder.
-3. Project the extracted features to 192 dimensions.
-4. Apply adaptive average pooling to obtain five temporal feature vectors.
-5. Add learned positional embeddings.
-6. Process the sequence with a Transformer encoder.
-7. Apply temporal average pooling.
-8. Use a linear classifier to predict the action classes.
-Include the actual Transformer configuration:
-Parameter	Value
-Embedding dimension	192
-Number of layers	2
-Attention heads	8
-Number of temporal tokens	5
-Positional encoding	Learned
-Temporal aggregation	Average pooling
-
-Also report the feed-forward dimension, dropout, normalization, and activation function from your implementation.
-
-Explain why you chose these values, if you have experimental justification.
-4.4 Architectural Differences
-I strongly recommend adding this subsection.
-
-A table will make your contribution much easier to understand.
-Component	CNN baseline	Transformer
-2D backbone	EfficientNetV2-B0	Same
-Input frames	15	15
-Frame grouping	3	3
-Temporal encoder	3D CNN	Transformer
-Spatial aggregation	As implemented in baseline	Adaptive average pooling
-Temporal aggregation	Baseline pooling	Average pooling
-Classifier	Linear	Linear
-
-Verify every entry against your actual code.
-
-In particular, explain that spatial pooling before attention changes the feature representation as well as the temporal modeling operation. This distinction is important for interpreting the comparison.
-4.5 Training and Inference
-Describe the training and prediction pipelines.
-
-Include:
-- Input resolution.
-- Frame sampling rate.
-- Number of input frames.
-- Label construction.
-- Loss function.
-- Optimizer.
-- Learning rate and scheduler.
-- Batch size.
-- Data augmentation.
-- Initialization and pretrained weights.
-- Number of epochs.
-- Prediction procedure.
-- Postprocessing.
-For inference, explain how frame-wise probabilities are converted into timestamp predictions.
-
-For example, describe Gaussian smoothing and peak detection if you retain those operations.
-\subsection{Task Definition}
 Define the input video sequence, the action classes, the timestamp-based labels, and the prediction target. Explain whether the model predicts the action at the center frame or predicts a temporal sequence of action probabilities. \\
 
 Your draft describes labels expanded around the annotated timestamp. Make that explicit, including the window size, because it affects what the model is learning. \\
@@ -506,6 +424,84 @@ We investigate an alternative approach to temporal feature
 modeling by replacing its 3D convolutional encoder with
 a Transformer encoder, while retaining the shared 2D
 visual feature extractor.
+\subsection{Baseline Architecture}
+Describe Baikulov's architecture as the reference architecture you reproduce or adapt.
+
+Include a diagram.
+
+Explain the processing pipeline:
+1. Sample frames from the video.
+2. Group neighboring grayscale frames into stacks of three.
+3. Apply the shared 2D EfficientNetV2-B0 encoder.
+4. Process the resulting feature maps using the 3D temporal encoder.
+5. Aggregate features using pooling.
+6. Predict action probabilities using a classification layer.
+Include tensor dimensions wherever possible.
+
+For example, assuming five stacks and a 192-channel projected representation, describe the actual dimensions produced by your implementation rather than relying on this example.
+\subsection{Transformer-Based Temporal Encoder}
+This is your main architectural contribution.
+
+Explain the architecture step by step.
+
+Based on your previous draft:
+1. Divide the 15-frame input into five groups of three frames.
+2. Process each group using the shared 2D encoder.
+3. Project the extracted features to 192 dimensions.
+4. Apply adaptive average pooling to obtain five temporal feature vectors.
+5. Add learned positional embeddings.
+6. Process the sequence with a Transformer encoder.
+7. Apply temporal average pooling.
+8. Use a linear classifier to predict the action classes.
+Include the actual Transformer configuration:
+Parameter	Value
+Embedding dimension	192
+Number of layers	2
+Attention heads	8
+Number of temporal tokens	5
+Positional encoding	Learned
+Temporal aggregation	Average pooling
+
+Also report the feed-forward dimension, dropout, normalization, and activation function from your implementation.
+
+Explain why you chose these values, if you have experimental justification.
+\subsection{Architectural Differences}
+I strongly recommend adding this subsection.
+
+A table will make your contribution much easier to understand.
+Component	CNN baseline	Transformer
+2D backbone	EfficientNetV2-B0	Same
+Input frames	15	15
+Frame grouping	3	3
+Temporal encoder	3D CNN	Transformer
+Spatial aggregation	As implemented in baseline	Adaptive average pooling
+Temporal aggregation	Baseline pooling	Average pooling
+Classifier	Linear	Linear
+
+Verify every entry against your actual code.
+
+In particular, explain that spatial pooling before attention changes the feature representation as well as the temporal modeling operation. This distinction is important for interpreting the comparison.
+\subsection{Training and Inference}
+Describe the training and prediction pipelines.
+
+Include:
+- Input resolution.
+- Frame sampling rate.
+- Number of input frames.
+- Label construction.
+- Loss function.
+- Optimizer.
+- Learning rate and scheduler.
+- Batch size.
+- Data augmentation.
+- Initialization and pretrained weights.
+- Number of epochs.
+- Prediction procedure.
+- Postprocessing.
+For inference, explain how frame-wise probabilities are converted into timestamp predictions.
+
+For example, describe Gaussian smoothing and peak detection if you retain those operations.
+
 
 \subsection{Baseline Architecture}
 \textbf{Research question is supposed to be about replacing the temporal 3D CNN with a Transformer}
@@ -540,11 +536,10 @@ A key methodological choice is whether you train the Transformer from scratch or
 \subsection{Prediction and Postprocessing}
 
 \section{Experimental Setup}
-5. Experimental Setup
 The purpose of this section is reproducibility.
 
 Another researcher should be able to understand how you performed the experiments.
-5.1 Dataset
+\subsection{Dataset}
 Describe the actual challenge dataset you used.
 
 Include:
@@ -558,7 +553,15 @@ Include:
 Be especially careful about the challenge year: your previous draft mixed 2023 and 2024 dataset descriptions.
 
 Use the correct dataset statistics for your experiment.
-5.2 Implementation Details
+The dataset is provided by Footovision and is composed of 7 games with a total of 11,041 annotated timestamps, as well as 2 extra segregated games for the challenge set.\\
+The dataset is \cite{Deliège2020SoccerNetv2}\\
+The data consists of 7 videos of English Football League games, each broadcast in 720p quality. We don't provide extracted features to encourage the development of end-to-end methods.  The challenge set is composed of 2 separate games. Additionally, participants are encouraged to leverage the 500 unannotated games from the Action Spotting challenge as a resource for this task. \\
+The dataset available is relatively small compared to the action spotting task,
+encouraging participants to explore semi-supervised, selfsupervised, or transfer learning methods using the 500 unlabeled broadcast games. \\ A significant enhancement this
+year is the inclusion of 12 classes of ball actions, requiring
+more precise classification. Consequently, simple categorizations like “pass” are insufficient as specific pass types must be clearly identified. \\
+We provide annotation for all two types of soccer ball actions: {Pass, Drive}. In 2024, we extend it to 12 different classes of soccer ball actions: {Pass, Drive, Header, High Pass, Out, Cross, Throw In, Shot, Ball Player Block, Player Successful Tackle, Free Kick, Goal}
+\subsection{Implementation Details}
 Describe your technical environment.
 
 For example:
@@ -572,7 +575,7 @@ For example:
 - Mixed precision.
 - Random seeds.
 Also report the relevant model hyperparameters.
-5.3 Evaluation Metrics
+\subsection{Evaluation Metrics}
 Explain mAP@1.
 
 Describe:
@@ -581,7 +584,8 @@ Describe:
 - The one-second temporal tolerance.
 - The official evaluation protocol.
 If you measure inference speed or memory, explain those metrics here too.
-5.4 Experimental Configurations
+Unlike the SoccerNet Action Spotting Challenge, that uses the tight average-mAP ([1-5] seconds tolerance), this challenge focuses on accurately spotting the ball events with the mAP@1 (1 second tolerance).
+\subsection{Experimental Configurations}
 Clearly identify your experiments.
 
 I suggest the following table:
@@ -617,11 +621,14 @@ If you change several things at once — for example, the temporal encoder, the 
 \subsection{Experimental Configurations}
 
 \section{Results and Discussion}
-6. Results and Discussion
 This section should answer your research question, not just present numbers.
 
 I recommend five subsections.
-6.1 Main Comparison
+\subsection{Main Comparison}
+\textbf{This isn't true, TODO: rewrite and check}\\
+We use the 3D CNN-based architecture from the 2023 challenge as the reference for our design. Since the proposed model was trained on the 2024 data, results from the two challenge years are not a controlled comparison of temporal architectures. Differences in dataset composition, training data, and evaluation conditions must be considered when interpreting the results.
+
+
 This is your most important results table.
 
 For example:
@@ -637,7 +644,7 @@ Discuss:
 - Are the differences consistent across classes or folds?
 - Does the Transformer introduce computational overhead?
 Don't interpret a small difference as significant without suitable repeated experiments.
-6.2 Effect of Temporal Context
+\subsection{Effect of Temporal Context}
 Investigate how the length of the input sequence affects performance.
 
 For example:
@@ -647,7 +654,7 @@ For example:
 Explain whether longer temporal context improves spotting performance.
 
 If you compare sequence lengths, make sure the sampling rate and temporal coverage are clearly specified.
-6.3 Ablation Study
+\subsection{Ablation Study}
 Investigate individual architectural choices.
 
 Possible experiments:
@@ -669,7 +676,7 @@ Analyze:
 Include qualitative examples if possible.
 
 For instance, show a short video timeline with ground-truth timestamps and predicted timestamps.
-6.5 Limitations
+\subsection{Limitations}
 Be honest about the limitations.
 
 Potential points:
@@ -682,25 +689,25 @@ Potential points:
 Only include limitations that genuinely apply.\\
 Your current proposed subsections are sensible, but each should answer a specific question.
 
-A. Main Comparison
+\subsection{Main Comparison}
 
 Compare the CNN and Transformer using the same evaluation protocol. Report mAP@1, absolute difference in percentage points, and, if feasible, variation across random seeds or folds.
 
 
 
-B. Effect of Temporal Context
+\subsection{Effect of Temporal Context}
 
 Test whether performance changes when the input sequence becomes longer. To isolate the effect of the encoder, use comparable temporal windows for both architectures.
 
 
 
-C. Ablation Study
+\subsection{Ablation Study}
 
 Test one design choice at a time, such as embedding dimension, number of Transformer layers, or positional encoding. Choose only a few ablations that help explain the main result.
 
 
 
-D. Error Analysis
+\subsection{Error Analysis}
 
 Investigate false positives, missed actions, closely spaced events, and differences between action classes. Use examples or per-class metrics where possible.
 
@@ -712,19 +719,7 @@ One distinction matters for your current draft: the leaderboard table is useful 
 
 
 We evaluate the proposed Transformer-based model on the 2024 ball-action spotting challenge using the official evaluation protocol. We report the primary challenge metric and describe the evaluation split and inference procedure.
-\subsection{Dataset}
-The dataset is provided by Footovision and is composed of 7 games with a total of 11,041 annotated timestamps, as well as 2 extra segregated games for the challenge set.\\
-The dataset is \cite{Deliège2020SoccerNetv2}\\
-The data consists of 7 videos of English Football League games, each broadcast in 720p quality. We don't provide extracted features to encourage the development of end-to-end methods.  The challenge set is composed of 2 separate games. Additionally, participants are encouraged to leverage the 500 unannotated games from the Action Spotting challenge as a resource for this task. \\
-The dataset available is relatively small compared to the action spotting task,
-encouraging participants to explore semi-supervised, selfsupervised, or transfer learning methods using the 500 unlabeled broadcast games. \\ A significant enhancement this
-year is the inclusion of 12 classes of ball actions, requiring
-more precise classification. Consequently, simple categorizations like “pass” are insufficient as specific pass types must be clearly identified. \\
-We provide annotation for all two types of soccer ball actions: {Pass, Drive}. In 2024, we extend it to 12 different classes of soccer ball actions: {Pass, Drive, Header, High Pass, Out, Cross, Throw In, Shot, Ball Player Block, Player Successful Tackle, Free Kick, Goal}
-\subsection{Evaluation}
-Unlike the SoccerNet Action Spotting Challenge, that uses the tight average-mAP ([1-5] seconds tolerance), this challenge focuses on accurately spotting the ball events with the mAP@1 (1 second tolerance).
-\subsection{Comparison with the Baseline}
-We use the 3D CNN-based architecture from the 2023 challenge as the reference for our design. Since the proposed model was trained on the 2024 data, results from the two challenge years are not a controlled comparison of temporal architectures. Differences in dataset composition, training data, and evaluation conditions must be considered when interpreting the results.
+
 
 
 Here we need to compare to other results.\\
@@ -759,20 +754,20 @@ We examine the model's predictions to identify common false positives, missed ac
 The current comparison does not isolate the effect of replacing 3D convolutions with self-attention. The proposed model also changes spatial and temporal feature aggregation. A controlled comparison using both architectures trained and evaluated under the same conditions would be needed to attribute performance differences more specifically to the temporal modeling approach
 
 \section{Conclusion and Future Work}
-7. Conclusion and Future Work
+\subsection{Conclusion and Future Work}
 Keep this section relatively short.
 
 Structure it in three paragraphs.
 
-Paragraph 1 — Objective and method
+\textbf{Paragraph 1 — Objective and method}
 
 Summarize the problem and your proposed architecture.
 
-Paragraph 2 — Main findings
+\textbf{Paragraph 2 — Main findings}
 
 Report the actual experimental results and explain what they demonstrate about CNN-based and Transformer-based temporal modeling.
 
-Paragraph 3 — Future work
+\textbf{Paragraph 3 — Future work}
 
 Possible directions:
 - Spatial-temporal attention instead of spatially pooled temporal tokens.
@@ -783,49 +778,12 @@ Possible directions:
 Avoid introducing new experimental claims in the conclusion.
 
 
-
-
-\subsection{\LaTeX-Specific Advice}
-
-``Fig.~\ref{fig}'', even at the beginning of a sentence.
-
-\begin{table}[htbp]
-\caption{Table Type Styles}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
-\cline{2-4} 
-\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
-\hline
-copy& More table copy$^{\mathrm{a}}$& &  \\
-\hline
-\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
-\end{tabular}
-\label{tab1}
-\end{center}
-\end{table}
-
-\begin{figure}[htbp]
-\centerline{\includegraphics{fig1.png}}
-\caption{Example of a figure caption.}
-\label{fig}
-\end{figure}
-
-
 \section*{Acknowledgment}
 Acknowledgment
-
-
-\section*{References}
-References blah blah
 
 
 \bibliography{bibliography/IEEEabrv.bib,bibliography/IEEEexample.bib}{}
 \bibliographystyle{IEEEtran}
 
 \vspace{12pt}
-\color{red}
-IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
-
 \end{document}

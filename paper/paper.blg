@@ -9,8 +9,10 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: bibliography/IEEEabrv.bib
 Database file #2: bibliography/IEEEexample.bib
+Warning--string name "july" is undefined
+--line 37 of file bibliography/IEEEexample.bib
 Warning--string name "june" is undefined
---line 119 of file bibliography/IEEEexample.bib
+--line 145 of file bibliography/IEEEexample.bib
 Warning--I didn't find a database entry for "Wang2023BME"
 Warning--I didn't find a database entry for "Hong2022Spotting"
 -- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
@@ -18,45 +20,45 @@ Warning--I didn't find a database entry for "Hong2022Spotting"
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 5 entries,
+You've used 6 entries,
             4024 wiz_defined-function locations,
-            1209 strings with 15720 characters,
-and the built_in function-call counts, 3295 in all, are:
-= -- 234
-> -- 120
-< -- 1
-+ -- 58
-- -- 29
-* -- 160
-:= -- 495
-add.period$ -- 11
-call.type$ -- 5
-change.case$ -- 6
+            1218 strings with 17747 characters,
+and the built_in function-call counts, 7219 in all, are:
+= -- 384
+> -- 529
+< -- 3
++ -- 262
+- -- 131
+* -- 390
+:= -- 899
+add.period$ -- 13
+call.type$ -- 6
+change.case$ -- 7
 chr.to.int$ -- 0
-cite$ -- 5
-duplicate$ -- 256
-empty$ -- 287
-format.name$ -- 33
-if$ -- 739
+cite$ -- 6
+duplicate$ -- 499
+empty$ -- 527
+format.name$ -- 136
+if$ -- 1651
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 63
-newline$ -- 44
-num.names$ -- 5
-pop$ -- 184
+int.to.str$ -- 6
+missing$ -- 171
+newline$ -- 49
+num.names$ -- 6
+pop$ -- 497
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 251
+skip$ -- 493
 stack$ -- 0
-substring$ -- 33
-swap$ -- 174
-text.length$ -- 1
+substring$ -- 34
+swap$ -- 405
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 5
+type$ -- 6
 warning$ -- 0
-while$ -- 6
-width$ -- 6
-write$ -- 71
-(There were 3 warnings)
+while$ -- 7
+width$ -- 7
+write$ -- 84
+(There were 4 warnings)
