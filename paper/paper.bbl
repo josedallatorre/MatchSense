@@ -42,7 +42,7 @@ Y.~Li, L.~Chen, R.~He, Z.~Wang, G.~Wu, and L.~Wang, ``Multisports: A
 S.~Giancola, M.~Amine, T.~Dghaily, and B.~Ghanem, ``Soccernet: A scalable
   dataset for action spotting in soccer videos,'' in \emph{2018 IEEE/CVF
   Conference on Computer Vision and Pattern Recognition Workshops
-  (CVPRW)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2018, p.
+  (CVPRW)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, June 2018, p.
   1792–179210. [Online]. Available:
   \url{http://dx.doi.org/10.1109/CVPRW.2018.00223}
 \BIBentrySTDinterwordspacing
@@ -68,10 +68,25 @@ A.~Cioppa, S.~Giancola, V.~Somers, F.~Magera, X.~Zhou, H.~Mkhallati,
   \url{http://dx.doi.org/10.1007/s12283-024-00466-4}
 \BIBentrySTDinterwordspacing
 
+\bibitem{hong2022spottingtemporallyprecisefinegrained}
+\BIBentryALTinterwordspacing
+J.~Hong, H.~Zhang, M.~Gharbi, M.~Fisher, and K.~Fatahalian, ``Spotting
+  temporally precise, fine-grained events in video,'' 2022. [Online].
+  Available: \url{https://arxiv.org/abs/2207.10213}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Baikulov2023}
 R.~Baikulov, ``Solution for soccernet ball action spotting challenge 2023,''
   \url{https://github.com/lRomul/ball-action-spotting}, 2023, first-place
   challenge solution.
+
+\bibitem{wang2023boostedmodelensemblingapproach}
+\BIBentryALTinterwordspacing
+L.~Wang, H.~Guo, and B.~Liu, ``A boosted model ensembling approach to ball
+  action spotting in videos: The runner-up solution to cvpr'23 soccernet
+  challenge,'' 2023. [Online]. Available:
+  \url{https://arxiv.org/abs/2306.05772}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Deliège2020SoccerNetv2}
 A.~Deliège, A.~Cioppa, S.~Giancola, M.~J. Seikavandi, J.~V. Dueholm,

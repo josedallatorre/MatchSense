@@ -70,16 +70,8 @@ Transformers, video understanding.
 \end{IEEEkeywords}
 
 \section{Introduction}
-Paragraph 1 — General problem
-Introduce video understanding and temporal action spotting.
-
-Explain that action spotting involves identifying both the semantic category and the temporal location of events in long, untrimmed videos.
-
-Then introduce soccer as an interesting application because broadcast videos contain many events, and understanding them requires temporal reasoning. \\
-The improvements in deep learning and increase computing power permitted considerable progress in the field of video understanding. In particular sport video understanding field has become more important area for computer vision researcher \cite{deliège2021soccernetv2datasetbenchmarksholistic} \cite{li2021multisportsmultipersonvideodataset} \cite{Giancola_2018} moving from easier task like object detection to more demanding challenges like temporal action spotting.\\
+The improvements in deep learning and increase computing power permitted considerable progress in the field of sports video understanding. In particular sport video understanding field has become more important area for computer vision researcher \cite{deliège2021soccernetv2datasetbenchmarksholistic} \cite{li2021multisportsmultipersonvideodataset} \cite{Giancola_2018} moving from easier task like object detection to more demanding challenges like temporal action spotting.\\
 Temporal action spotting is a computer vision task that identifies the exact timestamp when a specific action or event begins or occurs in an untrimmed video, without needing to outline its full start-and-end duration.\\
-
-\textbf{Paragraph 2 — Ball action spotting} \\
 To advance research in soccer video understanding the SoccerNet Challenge was proposed at CVPR 2023. The challenge focused on 7 tasks divided into three categories: Broadcast video understanding, Field Understanding, and Player understanding. We will focus on the first edition of Ball action spotting challenge included in the first category.\\
 A. Cioppa et al. \cite{Cioppa_2024}  define ball action spotting challenge as localizing the exact time when two types of actions related to the soccer ball occur: pass and drive. This task pose a unique challenge due to the dynamic and complex nature of the game. During a match players move rapidly, often obscuring each other, making it difficult to accurately track their movements.\\
 In this challenge a precise timestamp is set for this actions:
@@ -148,6 +140,205 @@ List only contributions you actually make. For example:
     \item An analysis of accuracy, temporal context, and computational cost.
 \end{itemize}
 \section{Related Work}
+\subsection{Soccer Action Spotting}
+
+Soccer action spotting has received increasing attention in computer vision, particularly with the introduction of the SoccerNet benchmark [3]. The benchmark provides broadcast soccer videos annotated with temporally localized events, enabling the development and evaluation of methods for detecting relevant moments in long, untrimmed recordings.
+
+The SoccerNet dataset and its subsequent extensions have supported research into different aspects of soccer video understanding, including action spotting and the recognition of events from broadcast footage [1], [4]. These tasks require models to process long sequences and identify events whose temporal boundaries or occurrence times are not known in advance.
+
+The SoccerNet 2023 challenges further expanded this research direction by introducing several tasks addressing broadcast video, field, and player understanding [4]. Within this framework, Ball Action Spotting focuses specifically on identifying two ball-related events: passes and drives. Each event is represented by a timestamp corresponding to a precisely defined interaction with the ball. This formulation differs from broader action spotting tasks because the target events are closely related to changes in ball possession and control.
+
+The temporal precision required by this task makes the extraction of information from neighboring frames particularly important. A single frame may not provide sufficient context to distinguish the relevant interaction, motivating architectures that combine spatial feature extraction with temporal modeling.
+
+\subsection{Ball Action Spotting}
+
+The SoccerNet Ball Action Spotting Challenge 2023 attracted several approaches based on deep learning architectures and different training strategies. Among them, Baikulov achieved first place with an efficient architecture combining 2D and 3D convolutional operations [6].
+
+The proposed solution adopts a slow-fusion strategy. A shared 2D convolutional backbone independently extracts visual features from groups of neighboring grayscale frames. These feature representations are subsequently processed by a 3D convolutional encoder, which captures spatiotemporal information. Generalized mean pooling is then applied to aggregate the resulting features before the final classification stage.
+
+An important aspect of this approach is the separation of spatial and temporal feature extraction. By applying 2D convolutions before 3D convolutions, the architecture first extracts visual information from individual frame groups and subsequently integrates information across time. This design provides an effective balance between spatial representation learning and temporal feature extraction.
+
+Beyond the model architecture, Baikulov's solution employs a multi-stage training strategy. This includes pretraining on the SoccerNet Action Spotting dataset, transfer learning, and fine-tuning with longer temporal sequences. The solution also introduces an out-of-fold prediction-based sampling strategy to increase the probability of selecting challenging training examples. These choices highlight the importance of the training procedure, in addition to the architecture itself, for achieving strong spotting performance.
+
+Another notable approach was proposed by Wang et al. [7], who obtained second place in the 2023 challenge with Boosted Model Ensembling (BME). Their method builds upon the E2E-Spot architecture [5] and focuses on generating and combining multiple candidate models. The candidate models differ in their feature extraction architectures and training configurations. An iterative selection procedure is then used to identify suitable ensemble members and assign their respective weights according to their validation performance.
+
+These two solutions illustrate different strategies for improving ball action spotting: the use of an efficient spatiotemporal architecture and the combination of diverse models through ensemble learning. In particular, Baikulov's slow-fusion architecture provides the reference for the approach investigated in this work. We explore an alternative temporal modeling strategy by replacing its 3D convolutional encoder with a Transformer-based encoder while retaining the shared 2D visual feature extractor.
+
+\subsection{Convolutional Temporal Modeling}
+
+Convolutional neural networks are widely used in video understanding because they can learn hierarchical visual representations directly from image data. A conventional 2D CNN applies convolutional filters across the spatial dimensions of an image, extracting features such as edges, textures, and higher-level semantic patterns.
+
+However, video data also contains temporal information that cannot be fully represented by processing frames independently. Three-dimensional convolutional neural networks address this limitation by extending convolutional operations to the temporal dimension. Their filters operate across both spatial and temporal dimensions, allowing the network to learn local motion patterns and interactions between neighboring frames.
+
+An alternative to applying 3D convolutions throughout the entire network is the slow-fusion strategy. In this approach, spatial features are initially extracted using 2D convolutions and are progressively integrated through subsequent temporal processing stages. This reduces the need to perform full spatiotemporal convolutions at the earliest network layers while retaining the ability to learn temporal representations.
+
+The slow-fusion architecture employed by Baikulov [6] follows this principle by combining a shared 2D feature extractor with a 3D convolutional temporal encoder. The resulting architecture serves as the convolutional reference for our investigation.
+
+\subsection{Transformer-Based Temporal Modeling}
+
+Transformers were originally introduced as an attention-based architecture for sequence modeling. Their central component is the self-attention mechanism, which enables each element of a sequence to incorporate information from other elements through interactions between query, key, and value representations.
+
+Unlike convolutional operations, which aggregate information through locally defined receptive fields, self-attention computes relationships between elements across the input sequence. This allows the model to capture dependencies between temporally separated representations without requiring information to pass exclusively through successive local operations.
+
+Since Transformers do not inherently encode the ordering of input elements, positional information is incorporated into the sequence representations. Positional embeddings provide the model with information about the relative or absolute positions of individual elements, allowing temporal order to influence the attention computation.
+
+In video understanding, this mechanism can be applied to sequences of visual feature representations extracted from individual frames or groups of frames. A temporal encoder can then learn relationships between these representations and aggregate the resulting information for video-level classification.
+
+In this work, we investigate this approach specifically for ball action spotting. Rather than processing spatial feature maps through a 3D convolutional encoder, the proposed architecture first aggregates spatial information into compact feature vectors and subsequently models their temporal relationships using a Transformer encoder. This provides an alternative to the convolutional temporal modeling strategy employed by the reference architecture.
+
+\section{PROPOSED METHOD}
+\subsection{Architecture Overview}
+
+The proposed model is a single-stage architecture designed to detect ball-related actions by jointly exploiting spatial appearance and temporal information. It follows a two-part feature extraction strategy: a convolutional backbone extracts visual representations from short groups of consecutive frames, while a factorized Transformer models temporal dependencies and spatial relationships within the resulting feature maps.
+
+Given an input video segment containing \(T=15\) grayscale frames, the frames are divided into five non-overlapping groups of three consecutive frames. Each group is processed independently by a shared 2D convolutional backbone. The resulting feature maps are projected to a common channel dimension and arranged as a spatio-temporal feature tensor.
+
+Unlike approaches that aggregate spatial information before temporal modelling, the proposed architecture preserves a coarse spatial representation throughout the Transformer stages. Temporal attention is first applied independently at each spatial location. Subsequently, spatial attention enables information exchange between different locations within each time step. This factorized design allows the network to model both the temporal evolution of visual features and their spatial relationships.
+
+The final representation is obtained by averaging the encoded features over the temporal and spatial dimensions. A linear classification layer then produces the predictions for the two ball-action categories considered in the 2023 challenge: pass and drive.
+
+\subsection{Frame Grouping and 2D Feature Extraction}
+
+Let the input video segment be represented by
+
+\[
+X \in \mathbb{R}^{B \times T \times H \times W},
+\]
+
+where \(B\) is the batch size, \(T=15\) is the number of input frames, and \(H\) and \(W\) denote the frame height and width.
+
+To exploit short-term visual information while maintaining the computational efficiency of a 2D backbone, consecutive frames are grouped into stacks of three. The input is therefore reshaped into five groups:
+
+\[
+X_s \in \mathbb{R}^{(B \cdot 5) \times 3 \times H \times W}.
+\]
+
+Each group is treated as a three-channel input and processed by the same 2D convolutional backbone. The backbone extracts a feature map for each group, producing a representation with 192 channels and a spatial resolution of \(23 \times 40\) in the configuration shown in the implementation.
+
+A \(1 \times 1\) convolution followed by batch normalization and a SiLU activation is used to project the extracted features to a 192-dimensional representation. The projected feature maps are then reshaped to recover the temporal dimension:
+
+\[
+F \in \mathbb{R}^{B \times 5 \times 192 \times 23 \times 40}.
+\]
+
+At this stage, each of the five temporal positions is represented by a spatial feature map. The shared convolutional backbone provides visual descriptors, while the subsequent Transformer stages explicitly model their spatio-temporal relationships.
+
+\subsection{Spatial Feature Reduction}
+
+Directly applying attention to the full spatial resolution would result in a large number of tokens and substantial computational cost. To make attention-based processing more efficient while retaining spatial information, adaptive average pooling is applied independently to each feature map.
+
+The spatial dimensions are reduced from \(23 \times 40\) to \(6 \times 10\):
+
+\[
+F_p \in \mathbb{R}^{B \times 5 \times 192 \times 6 \times 10}.
+\]
+
+The resulting grid contains 60 spatial locations per time step. Each location is represented by a 192-dimensional feature vector. Importantly, this operation does not collapse the entire feature map into a single vector; it preserves a coarse spatial layout that is subsequently used by the attention modules.
+
+\subsection{Factorized Spatial Temporal Transformer}
+
+The central component of the proposed architecture is a factorized Transformer encoder composed of two sequential attention stages: temporal attention and spatial attention.
+
+\textbf{Temporal attention.} First, the feature tensor is reorganized so that each spatial location is associated with a sequence of five feature vectors, one for each temporal group. The tensor is reshaped as
+
+\[
+F_t \in \mathbb{R}^{(B \cdot 60) \times 5 \times 192}.
+\]
+
+Consequently, each spatial location is processed as an independent temporal sequence. This design allows the model to learn how the visual representation at a particular location changes across the input segment, without initially mixing information from different spatial locations.
+
+A learnable temporal positional embedding is added to each sequence to encode the ordering of the five temporal positions. The resulting representation is processed by a Transformer encoder consisting of two layers. Each layer uses multi-head self-attention with eight attention heads, a feed-forward dimension of 768, and a dropout probability of 0.1.
+
+The temporal encoder therefore models dependencies between the five frame groups independently at each of the 60 spatial locations.
+
+**Spatial attention.** After temporal encoding, the tensor is rearranged to restore the temporal and spatial dimensions:
+
+\[
+F'_t \in \mathbb{R}^{B \times 5 \times 60 \times 192}.
+\]
+
+Spatial attention is then applied independently to each temporal position. For each of the five time steps, the 60 spatial feature vectors form a sequence:
+
+\[
+F_s \in \mathbb{R}^{(B \cdot 5) \times 60 \times 192}.
+\]
+
+A learnable spatial positional embedding is added to represent the locations within the \(6 \times 10\) feature grid. The resulting sequence is processed by a Transformer encoder with one layer, eight attention heads, a feed-forward dimension of 768, and a dropout probability of 0.1.
+
+This second stage enables the model to exchange information between different spatial locations. In combination with the preceding temporal encoder, it allows the network to represent both how visual features evolve over time and how different regions of the scene relate to one another.
+
+\subsection{Feature Aggregation and Classification}
+
+Following the spatial Transformer, the encoded representation is reshaped to
+
+\[
+F_{\mathrm{out}} \in
+\mathbb{R}^{B \times 5 \times 60 \times 192}.
+\]
+
+The temporal and spatial dimensions are averaged to obtain one feature vector per input segment:
+
+\[
+z_b =
+\frac{1}{5 \cdot 60}
+\sum_{t=1}^{5}
+\sum_{s=1}^{60}
+F_{\mathrm{out}}[b,t,s,:].
+\]
+
+The resulting representation has 192 dimensions and summarizes the information extracted across all temporal groups and spatial locations.
+
+Finally, a fully connected layer maps this representation to the output classes:
+
+\[
+\hat{y}_b = W z_b + b,
+\]
+
+where the output dimension corresponds to the two ball-action categories, pass and drive. The resulting scores are used to predict the presence of the corresponding actions in the input segment.
+
+---
+
+\section{EXPERIMENTAL SETUP}
+
+\subsection{Dataset and Task}
+
+The experiments are conducted in the context of the SoccerNet Ball Action Spotting Challenge 2023. The task consists of identifying two types of ball-related actions: passes and drives. A pass corresponds to the moment when the ball leaves a player's foot, whereas a drive corresponds to an instance in which a player controls the ball.
+
+The dataset comprises broadcast football videos annotated with temporal action labels. The objective is to predict the temporal locations of the annotated actions from the video frames.
+
+**[TO BE COMPLETED: Specify the exact number of games and annotations used in your experiments, the training and validation split, and whether the official challenge test set was used for evaluation.]**
+
+\subsection{Input Representation}
+
+The proposed model receives a sequence of 15 grayscale frames as input. Consecutive frames are grouped into stacks of three, resulting in five temporal groups. Each group is processed by the shared 2D convolutional backbone, and the resulting feature maps are passed to the factorized spatial–temporal Transformer.
+
+**[TO BE COMPLETED: Specify the frame sampling rate, input resolution, temporal distance between sampled frames, and any image preprocessing or normalization applied.]**
+
+\subsection{Training Configuration}
+
+The proposed model was trained following the training procedure of the original Ball Action Spotting Challenge solution by Baikulov [6]. The original training configuration was retained, including the optimizer, learning-rate schedule, number of epochs, and loss function.
+
+The only modification concerned the batch size, which was reduced from 2 to 1 due to GPU memory constraints. While the original implementation was trained on an NVIDIA GeForce RTX 3090 Ti, our experiments were conducted on an NVIDIA GeForce RTX 3080. This adjustment allowed the model to be trained within the available hardware resources while preserving the remaining training settings.
+
+The experimental evaluation considers the model obtained directly after the training procedure. No additional fine-tuning stages, training phases, or post-processing operations were applied to the predictions.
+
+The model was trained using the configuration adapted from Baikulov's reference implementation [6]. The input videos were represented by sequences of 15 grayscale frames, sampled with a temporal step of two frames and grouped into five stacks of three consecutive frames. Each frame was resized and padded to a resolution of 1280 × 736.
+
+The model was optimized using AdamW, with a base learning rate of \(3 \times 10^{-4}\) and a batch size of 1. Training employed mixed-precision computation and an epoch size of 6,000 samples. The training schedule consisted of two stages: a six-epoch warm-up stage followed by a 30-epoch training stage. Focal loss was used, with a focusing parameter \(\gamma=1.2\).
+
+An exponential moving average of the model parameters was maintained with a decay factor of 0.999. The EfficientNetV2-B0 backbone was initialized with pretrained ImageNet-1K weights and was not frozen during training. The batch size was reduced from the reference configuration to accommodate the available GPU memory.
+
+\subsection{Dataset Partitioning and Training Protocol}
+
+We adopted the seven-fold cross-validation strategy of Baikulov [6]. Each labelled game was assigned to one fold. For each fold, six folds were used for training, while the remaining fold was reserved for validation. This procedure was repeated seven times, resulting in seven fold-specific models.
+
+The proposed Transformer architecture was trained using this protocol. The original training configuration was retained, with the exception of the batch size, which was reduced from 2 to 1 to accommodate GPU memory constraints. No additional fine-tuning or post-processing was performed.
+
+\subsection{Evaluation Metric}
+
+Performance is evaluated using mean Average Precision (mAP), computed with the official SoccerNet evaluation implementation for the Ball Action Spotting Challenge 2023. Following the evaluation procedure adopted by Baikulov [6], predictions for the publicly available test games are obtained using the corresponding out-of-fold models. The official challenge test set is not publicly available for independent evaluation; therefore, the results reported in this work correspond to the publicly available test data and should not be interpreted as official challenge results.
+
+\textbf{rest}
 This section explains what has already been done and establishes where your work fits.
 
 I recommend four subsections.
@@ -273,6 +464,7 @@ ohkawa3 (link)
 
 \subsection{Wang et al. (2023)}
 \textbf{Authors summary}\\
+based on J. Hong et al.  \cite{hong2022spottingtemporallyprecisefinegrained} E2E-Spot
 Here we talk about the solution with the paper.\\ 
  Our method, Boosted Model Ensembling (BME), is based on the end-to-end baseline model, E2E-Spot, as presented in [10]? citation.\\
  We generate several variants of the E2E-Spot model to create a candidate model set and propose a strategy for selecting appropriate model members from this set while assigning appropriate weights to each selected model. More details can be found in [35]? citation.\\
@@ -398,7 +590,7 @@ challenge set \cite{Baikulov2023}.
 
 Another notable approach was proposed by Wang et al.,
 who obtained second place in the 2023 challenge with
-Boosted Model Ensembling (BME) \cite{Wang2023BME}.
+Boosted Model Ensembling (BME) \cite{wang2023boostedmodelensemblingapproach}.
 Their method is based on the E2E-Spot baseline and
 focuses on improving performance through the generation
 and combination of multiple candidate models. These models
@@ -413,7 +605,7 @@ Rather than relying on a conventional fixed ensemble,
 BME iteratively selects candidate models and determines
 their contribution according to improvements in validation
 mAP@1. The resulting ensemble achieved 86.37\% mAP@1
-on the challenge test set \cite{Wang2023BME}.
+on the challenge test set \cite{wang2023boostedmodelensemblingapproach}.
 
 These approaches demonstrate the importance of both
 spatiotemporal feature extraction and training strategies
@@ -576,6 +768,11 @@ For example:
 - Random seeds.
 Also report the relevant model hyperparameters.
 \subsection{Evaluation Metrics}
+We measure Average Precision within a tolerance of $\delta$
+frames (AP @ $\delta$). AP is computed for each event class, and mAP is the mean
+across classes. We focus on tight tolerances such as $\delta$ = 1 and $\delta$ = 2. Precise
+temporal events are rare as a percentage of frames (0.2–2.9\%), so metrics such
+as frame-level accuracy are not meaningful for precise spotting
 Explain mAP@1.
 
 Describe:
