@@ -95,4 +95,10 @@ A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
   Available: \url{https://arxiv.org/abs/1706.03762}
 \BIBentrySTDinterwordspacing
 
+\bibitem{tan2021efficientnetv2smallermodelsfaster}
+\BIBentryALTinterwordspacing
+M.~Tan and Q.~V. Le, ``Efficientnetv2: Smaller models and faster training,''
+  2021. [Online]. Available: \url{https://arxiv.org/abs/2104.00298}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  5 NOV 2026 13:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.10.16)  5 NOV 2026 16:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -412,49 +412,71 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 84.
 )
 \Hy@SectionHShift=\skip59
+) (/usr/local/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/tools/array.sty
+Package: array 2026/02/24 v2.7b Tabular extension package (FMi)
+\col@sep=\dimen259
+\ar@mcellbox=\box57
+\extrarowheight=\dimen260
+\NC@list=\toks24
+\extratabsurround=\skip60
+\backup@length=\skip61
+\ar@cellbox=\box58
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 23.
-Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 23.
-Package hyperref Info: Option `bookmarksopen' set `true' on input line 23.
- (/usr/local/texlive/2026/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def
+\TX@col@width=\dimen261
+\TX@old@table=\dimen262
+\TX@old@col=\dimen263
+\TX@target=\dimen264
+\TX@delta=\dimen265
+\TX@cols=\count324
+\TX@ftn=\toks25
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 21.
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 21.
+Package hyperref Info: Option `bookmarksopen' set `true' on input line 21.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/l3kernel/l3backend-pdftex.def
 File: l3backend-pdftex.def 2026-09-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count324
-) (./paper.aux)
+\l__color_backend_stack_int=\count325
+)
+(./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
 
 -- Lines per column: 56 (exact).
 (/usr/local/texlive/2026/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count325
-\scratchdimen=\dimen259
-\scratchbox=\box57
-\nofMPsegments=\count326
-\nofMParguments=\count327
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count328
-\MPscratchDim=\dimen260
-\MPnumerator=\count329
-\makeMPintoPDFobject=\count330
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count326
+\scratchdimen=\dimen266
+\scratchbox=\box59
+\nofMPsegments=\count327
+\nofMParguments=\count328
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count329
+\MPscratchDim=\dimen267
+\MPnumerator=\count330
+\makeMPintoPDFobject=\count331
+\everyMPtoPDFconversion=\toks27
 ) (/usr/local/texlive/2026/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -464,19 +486,19 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 27.
+Package hyperref Info: Link coloring ON on input line 25.
 
 (./paper.out) (./paper.out)
 \@outlinefile=\write3
 \openout3 = `paper.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 68.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 66.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 68.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 66.
 
 
 (/usr/local/texlive/2026/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -486,77 +508,77 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 ]
-Underfull \hbox (badness 1406) in paragraph at lines 102--106
+<./images/model.png, id=123, 560.8453pt x 406.51875pt>
+File: ./images/model.png Graphic file (type png)
+<use ./images/model.png>
+Package pdftex.def Info: ./images/model.png  used on input line 93.
+(pdftex.def)             Requested size: 252.0pt x 182.6526pt.
+
+
+LaTeX Warning: Reference `fig' on page 2 undefined on input line 97.
+
+
+Underfull \hbox (badness 1406) in paragraph at lines 105--109
 \OT1/ptm/m/n/10 2D CNN ap-plies con-vo-lu-tional fil-ters across the spa-tial
  []
 
 
-Underfull \hbox (badness 1418) in paragraph at lines 102--106
+Underfull \hbox (badness 1418) in paragraph at lines 105--109
 \OT1/ptm/m/n/10 However, video data also con-tains tem-po-ral in-for-ma-tion
  []
 
 
-Underfull \hbox (badness 2680) in paragraph at lines 102--106
+Underfull \hbox (badness 2680) in paragraph at lines 105--109
 \OT1/ptm/m/n/10 that can-not be fully rep-re-sented by pro-cess-ing frames
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 102--106
-\OT1/ptm/m/n/10 in-de-pen-dently. Three-dimensional con-vo-lu-tional neu-ral
+Underfull \hbox (badness 10000) in paragraph at lines 105--109
+\OT1/ptm/m/n/10 in-de-pen-dently. Three di-men-sional con-vo-lu-tional neu-ral
  []
 
 
-Underfull \hbox (badness 1609) in paragraph at lines 102--106
-\OT1/ptm/m/n/10 net-work to learn lo-cal mo-tion pat-terns and in-ter-ac-tions
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 102--106
+Underfull \hbox (badness 10000) in paragraph at lines 105--109
 
  []
 
 
-Underfull \hbox (badness 1789) in paragraph at lines 109--114
-\OT1/ptm/m/n/10 based ar-chi-tec-ture for se-quence mod-el-ing. Their cen-tral
+Underfull \hbox (badness 3579) in paragraph at lines 112--117
+\OT1/ptm/m/n/10 based ar-chi-tec-ture for se-quence mod-el-ing. The cen-tral
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--114
-\OT1/ptm/m/n/10 through lo-cally de-fined re-cep-tive fields, self-attention
+Underfull \hbox (badness 5091) in paragraph at lines 112--117
+\OT1/ptm/m/n/10 through lo-cally de-fined re-cep-tive fields, self at-ten-tion
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--114
+Underfull \hbox (badness 10000) in paragraph at lines 112--117
 \OT1/ptm/m/n/10 be-tween tem-po-rally sep-a-rated rep-re-sen-ta-tions with-out
  []
 
 
-Underfull \hbox (badness 1701) in paragraph at lines 109--114
+Underfull \hbox (badness 1701) in paragraph at lines 112--117
 \OT1/ptm/m/n/10 and ag-gre-gate the re-sult-ing in-for-ma-tion for video level
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--114
+Underfull \hbox (badness 10000) in paragraph at lines 112--117
 
  []
 
-[2] [3]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-32.
- (/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+[2 <./images/model.png>] [3]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
+96.
+
+(/usr/local/texlive/2026/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-[4]
-Underfull \hbox (badness 3701) in paragraph at lines 254--259
-[]\OT1/ptm/m/n/10 The Soc-cer-Net Ball Ac-tion Spot-ting Chal-lenge was
+) [4]
+Overfull \hbox (19.83403pt too wide) in alignment at lines 241--241
+[][][] 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 254--259
-
- []
-
-[5] (./paper.bbl [6])
+(./paper.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -568,24 +590,26 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7
-
-] (./paper.aux)
+[5] (./paper.aux)
  ***********
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-09-09>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: 8EABEF10F2C417A9181EF5B56E8ED760;5179.
+(rerunfilecheck)             Checksum: D2BF163F166C28DC626F0F4459F632DB;4828.
  ) 
 Here is how much of TeX's memory you used:
- 11524 strings out of 467050
- 179614 string characters out of 5406312
- 627033 words of memory out of 5000000
- 40716 multiletter control sequences out of 15000+600000
- 666936 words of font info for 113 fonts, out of 8000000 for 9000
+ 11680 strings out of 467050
+ 182148 string characters out of 5406312
+ 630064 words of memory out of 5000000
+ 40863 multiletter control sequences out of 15000+600000
+ 669559 words of font info for 120 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,8n,79p,1557b,590s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,8n,79p,1557b,443s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
 </usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></
@@ -598,10 +622,10 @@ local/texlive/2026/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texl
 ive/2026/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2026/
 texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2026/texmf-dist
 /fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (7 pages, 169651 bytes).
+Output written on paper.pdf (5 pages, 303471 bytes).
 PDF statistics:
- 256 PDF objects out of 1000 (max. 8388607)
- 220 compressed objects within 3 object streams
- 43 named destinations out of 1000 (max. 500000)
- 209 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 242 PDF objects out of 1000 (max. 8388607)
+ 206 compressed objects within 3 object streams
+ 41 named destinations out of 1000 (max. 500000)
+ 198 words of extra memory for PDF output out of 10000 (max. 10000000)
 
