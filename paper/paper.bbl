@@ -64,15 +64,8 @@ A.~Cioppa, S.~Giancola, V.~Somers, F.~Magera, X.~Zhou, H.~Mkhallati,
   T.~Someya, T.~B. Moeslund, T.~Li, W.~Shen, W.~Zhang, W.~Li, W.~Dai, W.~Luo,
   W.~Zhao, W.~Zhang, X.~Yang, Y.~Ma, Y.~Joo, Y.~Zeng, Y.~Gan, Y.~Zhu, Y.~Zhong,
   Z.~Ruan, Z.~Li, Z.~Huang, and Z.~Meng, ``Soccernet 2023 challenges results,''
-  \emph{Sports Engineering}, vol.~27, no.~2, 2024. [Online]. Available:
+  \emph{Sports Engineering}, vol.~27, no.~2, July 2024. [Online]. Available:
   \url{http://dx.doi.org/10.1007/s12283-024-00466-4}
-\BIBentrySTDinterwordspacing
-
-\bibitem{hong2022spottingtemporallyprecisefinegrained}
-\BIBentryALTinterwordspacing
-J.~Hong, H.~Zhang, M.~Gharbi, M.~Fisher, and K.~Fatahalian, ``Spotting
-  temporally precise, fine-grained events in video,'' 2022. [Online].
-  Available: \url{https://arxiv.org/abs/2207.10213}
 \BIBentrySTDinterwordspacing
 
 \bibitem{Baikulov2023}
@@ -88,11 +81,18 @@ L.~Wang, H.~Guo, and B.~Liu, ``A boosted model ensembling approach to ball
   \url{https://arxiv.org/abs/2306.05772}
 \BIBentrySTDinterwordspacing
 
-\bibitem{Deliège2020SoccerNetv2}
-A.~Deliège, A.~Cioppa, S.~Giancola, M.~J. Seikavandi, J.~V. Dueholm,
-  K.~Nasrollahi, B.~Ghanem, T.~B. Moeslund, and M.~V. Droogenbroeck,
-  ``Soccernet-v2 : A dataset and benchmarks for holistic understanding of
-  broadcast soccer videos,'' in \emph{The IEEE Conference on Computer Vision
-  and Pattern Recognition (CVPR) Workshops}, June 2021.
+\bibitem{hong2022spottingtemporallyprecisefinegrained}
+\BIBentryALTinterwordspacing
+J.~Hong, H.~Zhang, M.~Gharbi, M.~Fisher, and K.~Fatahalian, ``Spotting
+  temporally precise, fine-grained events in video,'' 2022. [Online].
+  Available: \url{https://arxiv.org/abs/2207.10213}
+\BIBentrySTDinterwordspacing
+
+\bibitem{vaswani2023attentionneed}
+\BIBentryALTinterwordspacing
+A.~Vaswani, N.~Shazeer, N.~Parmar, J.~Uszkoreit, L.~Jones, A.~N. Gomez,
+  L.~Kaiser, and I.~Polosukhin, ``Attention is all you need,'' 2023. [Online].
+  Available: \url{https://arxiv.org/abs/1706.03762}
+\BIBentrySTDinterwordspacing
 
 \end{thebibliography}
